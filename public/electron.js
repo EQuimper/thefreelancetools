@@ -6,6 +6,10 @@ const isDev = require('electron-is-dev');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
+if (isDev) {
+  require('electron-debug')({ showDevTools: true });
+}
+
 let mainWindow;
 
 function createWindow() {
