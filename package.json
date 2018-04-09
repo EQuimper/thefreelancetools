@@ -1,0 +1,30 @@
+{
+  "name": "freelancetool",
+  "version": "0.1.0",
+  "private": true,
+  "main": "public/electron.js",
+  "dependencies": {
+    "electron-is-dev": "^0.3.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.2",
+    "@types/node": "^9.6.2",
+    "@types/react": "^16.3.6",
+    "@types/react-dom": "^16.0.4",
+    "concurrently": "^3.5.1",
+    "electron": "^1.8.4",
+    "electron-builder": "^20.8.1",
+    "react-scripts-ts": "2.14.0",
+    "typescript": "^2.8.1",
+    "wait-on": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  }
+}
