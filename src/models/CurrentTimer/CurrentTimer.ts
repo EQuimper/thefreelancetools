@@ -2,7 +2,11 @@ import { types } from 'mobx-state-tree';
 
 export const CurrentTimer = types
   .model('CurrentTimer', {
-    elapseTime: 0,
+    elapseTime: types.model({
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    }),
     isRunning: false,
     intervalId: types.maybe(types.number),
   })
@@ -20,10 +24,24 @@ export const CurrentTimer = types
       self.isRunning = false;
     },
     reset() {
-      self.elapseTime = 0;
+      self.elapseTime = {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      };
     },
     updateElapseTime() {
-      self.elapseTime += 1;
+      self.elapseTime.seconds += 1;
+
+      if (self.elapseTime.seconds === 60) {
+        self.elapseTime.minutes += 1;
+        self.elapseTime.seconds = 0;
+
+        if (self.elapseTime.minutes === 60) {
+          self.elapseTime.hours += 1;
+          self.elapseTime.minutes = 0;
+        }
+      }
     },
   }))
   .views(self => ({

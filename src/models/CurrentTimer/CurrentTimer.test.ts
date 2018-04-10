@@ -6,15 +6,31 @@ jest.useFakeTimers();
 
 describe('CurrentTimer model', () => {
   it('should create a instance of a model', () => {
-    const currentTimer = CurrentTimer.create();
+    const currentTimer = CurrentTimer.create({
+      elapseTime: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      },
+    });
 
     expect(currentTimer.isRunning).toBe(false);
-    expect(currentTimer.elapseTime).toBe(0);
+    expect(currentTimer.elapseTime).toEqual({
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    });
     expect(currentTimer.intervalId).toBe(null);
   });
 
   it('should be able to start', () => {
-    const currentTimer = CurrentTimer.create();
+    const currentTimer = CurrentTimer.create({
+      elapseTime: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      },
+    });
 
     currentTimer.start();
 
@@ -25,7 +41,13 @@ describe('CurrentTimer model', () => {
   });
 
   it('should be able to stop', () => {
-    const currentTimer = CurrentTimer.create();
+    const currentTimer = CurrentTimer.create({
+      elapseTime: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      },
+    });
 
     const states: any[] = [];
 
@@ -50,7 +72,13 @@ describe('CurrentTimer model', () => {
   });
 
   it('should be able to reset', () => {
-    const currentTimer = CurrentTimer.create();
+    const currentTimer = CurrentTimer.create({
+      elapseTime: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      },
+    });
 
     const states: any[] = [];
 

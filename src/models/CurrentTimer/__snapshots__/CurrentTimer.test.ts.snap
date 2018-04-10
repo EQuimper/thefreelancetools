@@ -3,37 +3,65 @@
 exports[`CurrentTimer model should be able to reset 1`] = `
 Array [
   Object {
-    "elapseTime": 0,
+    "elapseTime": Object {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 0,
+    },
     "intervalId": 3,
     "isRunning": true,
   },
   Object {
-    "elapseTime": 1,
+    "elapseTime": Object {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 1,
+    },
     "intervalId": 3,
     "isRunning": true,
   },
   Object {
-    "elapseTime": 1,
+    "elapseTime": Object {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 1,
+    },
     "intervalId": null,
     "isRunning": false,
   },
   Object {
-    "elapseTime": 1,
+    "elapseTime": Object {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 1,
+    },
     "intervalId": 4,
     "isRunning": true,
   },
   Object {
-    "elapseTime": 2,
+    "elapseTime": Object {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 2,
+    },
     "intervalId": 4,
     "isRunning": true,
   },
   Object {
-    "elapseTime": 2,
+    "elapseTime": Object {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 2,
+    },
     "intervalId": null,
     "isRunning": false,
   },
   Object {
-    "elapseTime": 0,
+    "elapseTime": Object {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 0,
+    },
     "intervalId": null,
     "isRunning": false,
   },
@@ -43,17 +71,29 @@ Array [
 exports[`CurrentTimer model should be able to stop 1`] = `
 Array [
   Object {
-    "elapseTime": 0,
+    "elapseTime": Object {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 0,
+    },
     "intervalId": 2,
     "isRunning": true,
   },
   Object {
-    "elapseTime": 1,
+    "elapseTime": Object {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 1,
+    },
     "intervalId": 2,
     "isRunning": true,
   },
   Object {
-    "elapseTime": 1,
+    "elapseTime": Object {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 1,
+    },
     "intervalId": null,
     "isRunning": false,
   },
