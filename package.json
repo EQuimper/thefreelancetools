@@ -8,11 +8,16 @@
     "email": "quimperemanuel@gmail.com"
   },
   "dependencies": {
+    "date-fns": "^2.0.0-alpha.7",
     "electron-is-dev": "^0.3.0",
     "evergreen-ui": "^3.0.0",
     "immer": "^1.2.1",
+    "mobx": "^4.1.1",
+    "mobx-react": "^5.0.0",
+    "mobx-state-tree": "^2.0.3",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-router-dom": "^4.2.2",
     "styled-components": "^3.2.5"
   },
   "devDependencies": {
@@ -20,11 +25,13 @@
     "@types/node": "^9.6.2",
     "@types/react": "^16.3.6",
     "@types/react-dom": "^16.0.4",
+    "@types/react-router-dom": "^4.2.6",
     "concurrently": "^3.5.1",
     "electron": "^1.8.4",
     "electron-builder": "^20.8.1",
     "electron-debug": "^1.5.0",
     "electron-react-devtools": "^0.5.3",
+    "mobx-wiretap": "^0.13.1",
     "react-scripts-ts": "2.14.0",
     "tslint-config-prettier": "^1.10.0",
     "tslint-react": "^3.5.1",

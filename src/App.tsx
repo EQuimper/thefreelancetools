@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Sidebar } from './components';
+import Routes from './Routes';
 
 const Layout = styled.div`
   display: grid;
@@ -10,16 +12,20 @@ const Layout = styled.div`
 `;
 
 const Content = styled.div`
-  background-color: red;
+  background-color: #fff;
 `;
 
 class App extends React.Component {
   render() {
     return (
-      <Layout>
-        <Sidebar />
-        <Content />
-      </Layout>
+      <Router>
+        <Layout>
+          <Sidebar />
+          <Content>
+            <Routes />
+          </Content>
+        </Layout>
+      </Router>
     );
   }
 }
