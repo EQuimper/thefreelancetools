@@ -1,6 +1,10 @@
+import fontawesome from '@fortawesome/fontawesome';
+import * as faClock from '@fortawesome/fontawesome-free-solid/faClock';
 import * as React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components';
+
+fontawesome.library.add(faClock);
 
 import { Sidebar } from './components';
 import Routes from './Routes';

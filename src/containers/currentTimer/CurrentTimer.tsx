@@ -1,3 +1,4 @@
+import { Button, Text } from 'evergreen-ui';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 
@@ -46,10 +47,20 @@ class CurrentTimer extends React.Component<P, S> {
     const { currentTimer } = this.props;
     return (
       <div>
-        <h5>ElapseTime {this._getTime()}</h5>
-        <button onClick={currentTimer.start}>Start</button>
-        <button onClick={currentTimer.stop}>Stop</button>
-        <button onClick={currentTimer.reset}>Reset</button>
+        <Text>ElapseTime {this._getTime()}</Text>
+        <Button appearance="green" onClick={currentTimer.start}>
+          Start
+        </Button>
+        <Button marginLeft={12} appearance="red" onClick={currentTimer.stop}>
+          Stop
+        </Button>
+        <Button
+          marginLeft={12}
+          appearance="ghostBlue"
+          onClick={currentTimer.reset}
+        >
+          Reset
+        </Button>
       </div>
     );
   }
