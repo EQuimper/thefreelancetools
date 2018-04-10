@@ -1,18 +1,25 @@
 import * as React from 'react';
+import styled from 'styled-components';
 
-import './App.css';
+import { Sidebar } from './components';
+
+const Layout = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-auto-rows: minmax(100vh, auto);
+`;
+
+const Content = styled.div`
+  background-color: red;
+`;
 
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to My WOrld</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Layout>
+        <Sidebar />
+        <Content />
+      </Layout>
     );
   }
 }

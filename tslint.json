@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint-react"],
+  "extends": ["tslint-react", "tslint-config-prettier"],
   "rules": {
     "align": [true, "parameters", "arguments", "statements"],
     "ban": false,
@@ -53,6 +53,7 @@
       "check-open-brace",
       "check-whitespace"
     ],
+    "ordered-imports": [true],
     "quotemark": [true, "single", "jsx-double"],
     "radix": true,
     "semicolon": [true, "always"],
