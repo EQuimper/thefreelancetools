@@ -3,12 +3,18 @@
 exports[`ModalsManager model should be able to close a modal 1`] = `
 Array [
   Object {
+    "confirmButtonLabel": "Create Project",
     "isShow": true,
+    "modalTitle": "New Project",
     "modalType": "newProject",
+    "params": null,
   },
   Object {
+    "confirmButtonLabel": null,
     "isShow": false,
+    "modalTitle": null,
     "modalType": null,
+    "params": null,
   },
 ]
 `;
@@ -16,8 +22,11 @@ Array [
 exports[`ModalsManager model should be able to open a modal with the modalType newProject 1`] = `
 Array [
   Object {
+    "confirmButtonLabel": "Create Project",
     "isShow": true,
+    "modalTitle": "New Project",
     "modalType": "newProject",
+    "params": null,
   },
 ]
 `;

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 fontawesome.library.add(faClock);
 
 import { Sidebar } from './components';
+import { ModalsManager } from './containers';
 import Routes from './Routes';
 
 const Layout = styled.div`
@@ -28,6 +29,7 @@ class App extends React.Component {
           <Content>
             <Routes />
           </Content>
+          <ModalsManager />
         </Layout>
       </Router>
     );

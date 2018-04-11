@@ -20,7 +20,12 @@ describe('ModalsManager model', () => {
       states.push(snapshot);
     });
 
-    modalsManager.open(ModalTypeEnum.NEW_PROJECT);
+    modalsManager.open({
+      modalType: ModalTypeEnum.NEW_PROJECT,
+      modalTitle: 'New Project',
+      params: null,
+      confirmButtonLabel: 'Create Project',
+    });
 
     expect(modalsManager.isShow).toBe(true);
     expect(modalsManager.modalType).toBe('newProject');
@@ -37,7 +42,12 @@ describe('ModalsManager model', () => {
       states.push(snapshot);
     });
 
-    modalsManager.open(ModalTypeEnum.NEW_PROJECT);
+    modalsManager.open({
+      modalType: ModalTypeEnum.NEW_PROJECT,
+      modalTitle: 'New Project',
+      params: null,
+      confirmButtonLabel: 'Create Project',
+    });
 
     modalsManager.close();
 
