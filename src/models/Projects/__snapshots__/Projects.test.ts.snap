@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project model should be able to update the name 1`] = `
+Array [
+  Object {
+    "op": "replace",
+    "path": "/name",
+    "value": "Hello World",
+  },
+]
+`;
+
+exports[`Projects model should be able to add new project when create 1`] = `
+Array [
+  Object {
+    "projects": Array [
+      Object {
+        "id": "123",
+        "name": "My Project",
+      },
+    ],
+  },
+  Object {
+    "projects": Array [
+      Object {
+        "id": "123",
+        "name": "My Project",
+      },
+      Object {
+        "id": "456",
+        "name": "My Second Project",
+      },
+    ],
+  },
+]
+`;
+
+exports[`Projects model should be able to remove a project 1`] = `
+Array [
+  Object {
+    "projects": Array [
+      Object {
+        "id": "123",
+        "name": "My Project",
+      },
+    ],
+  },
+  Object {
+    "projects": Array [
+      Object {
+        "id": "123",
+        "name": "My Project",
+      },
+      Object {
+        "id": "456",
+        "name": "My Second Project",
+      },
+    ],
+  },
+  Object {
+    "projects": Array [
+      Object {
+        "id": "456",
+        "name": "My Second Project",
+      },
+    ],
+  },
+]
+`;

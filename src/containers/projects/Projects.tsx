@@ -16,7 +16,6 @@ class Projects extends React.PureComponent {
       modalTitle: 'New Project',
       modalType: ModalTypeEnum.NEW_PROJECT,
       params: null,
-      confirmButtonLabel: 'Create Project',
     });
   }
 
