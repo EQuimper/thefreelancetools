@@ -13,12 +13,8 @@ const Root = styled.div`
 
 const LINKS = [
   {
-    to: '/new-project',
-    title: 'New Project',
-  },
-  {
-    to: '/all-projects',
-    title: 'All Projects',
+    to: '/projects',
+    title: 'Projects',
   },
   {
     to: '/invoices',

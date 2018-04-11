@@ -29,7 +29,7 @@ interface P {
 interface S {}
 
 @inject('currentTimer')
-@observer(['currentTimer'])
+@observer
 class CurrentTimer extends React.Component<P, S> {
   state = {};
 
