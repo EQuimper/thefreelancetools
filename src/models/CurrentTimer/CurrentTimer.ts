@@ -11,25 +11,6 @@ export const CurrentTimer = types
     intervalId: types.maybe(types.number),
   })
   .actions(self => ({
-    start() {
-      // @ts-ignore
-      self.intervalId = Number(setInterval(self.updateElapseTime, 1000));
-      self.isRunning = true;
-    },
-    stop() {
-      if (self.intervalId) {
-        clearInterval(self.intervalId);
-      }
-      self.intervalId = null;
-      self.isRunning = false;
-    },
-    reset() {
-      self.elapseTime = {
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-      };
-    },
     updateElapseTime() {
       self.elapseTime.seconds += 1;
 
@@ -42,6 +23,30 @@ export const CurrentTimer = types
           self.elapseTime.minutes = 0;
         }
       }
+    },
+  }))
+  .actions(self => ({
+    start() {
+      self.intervalId = Number(setInterval(self.updateElapseTime, 1000));
+      self.isRunning = true;
+    },
+  }))
+  .actions(self => ({
+    stop() {
+      if (self.intervalId) {
+        clearInterval(self.intervalId);
+      }
+      self.intervalId = null;
+      self.isRunning = false;
+    },
+  }))
+  .actions(self => ({
+    reset() {
+      self.elapseTime = {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      };
     },
   }))
   .views(self => ({

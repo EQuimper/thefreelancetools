@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalsManager model should be able to close a modal 1`] = `
+Array [
+  Object {
+    "isShow": true,
+    "modalType": "newProject",
+  },
+  Object {
+    "isShow": false,
+    "modalType": null,
+  },
+]
+`;
+
+exports[`ModalsManager model should be able to open a modal with the modalType newProject 1`] = `
+Array [
+  Object {
+    "isShow": true,
+    "modalType": "newProject",
+  },
+]
+`;
