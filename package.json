@@ -12,7 +12,8 @@
     "src/models",
     "src/constants",
     "src/commons",
-    "src/containers"
+    "src/containers",
+    "src/types"
   ],
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.5",

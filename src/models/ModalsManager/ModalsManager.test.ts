@@ -1,6 +1,7 @@
 import { onSnapshot } from 'mobx-state-tree';
 
-import { ModalTypeEnum } from '../../types';
+import { ModalTypeEnum } from '@freelance-tool/types';
+
 import { ModalsManager } from './ModalsManager';
 
 describe('ModalsManager model', () => {

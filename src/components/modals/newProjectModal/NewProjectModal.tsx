@@ -4,8 +4,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
-import { TextInput } from '../../../commons';
-import { store } from '../../../models';
+import { TextInput } from '@freelance-tool/commons';
+import { store } from '@freelance-tool/models';
 
 const Root = styled.div`
   display: grid;

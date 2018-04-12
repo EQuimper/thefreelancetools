@@ -2,7 +2,7 @@ import { Button } from 'evergreen-ui';
 import * as React from 'react';
 
 import { store } from '@freelance-tool/models';
-import { ModalTypeEnum } from '../../types';
+import { ModalTypeEnum } from '@freelance-tool/types';
 // import styled from 'styled-components';
 
 // const Root = styled.div`
