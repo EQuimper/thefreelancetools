@@ -2,12 +2,13 @@ import { Button } from 'evergreen-ui';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import styled from 'styled-components';
+import * as uuid from 'uuid/v4';
 import * as Yup from 'yup';
 
 import { TextInput } from '@freelance-tool/commons';
-import { store } from '@freelance-tool/models';
+import { Project, store } from '@freelance-tool/models';
 
-const Root = styled.div`
+const Form = styled.form`
   display: grid;
   grid-row-gap: 30px;
   grid-template-rows: repeat(2, 1fr);
@@ -21,11 +22,14 @@ class NewProjectModal extends React.PureComponent {
   state = {};
 
   _handleSubmit = (values: FormValues, bag: FormikProps<FormValues>) => {
-    console.log('values', values);
+    const project = Project.create({
+      name: values.name,
+      id: uuid(),
+    });
+
+    store.projects.addProject(project);
 
     store.modalsManager.close();
-
-    // bag.setSubmitting(false);
   }
 
   render() {
@@ -48,7 +52,7 @@ class NewProjectModal extends React.PureComponent {
           handleSubmit,
           isValid,
         }: FormikProps<FormValues>) => (
-          <Root>
+          <Form onSubmit={handleSubmit}>
             <TextInput
               name="name"
               placeholder="Name of the project"
@@ -61,13 +65,12 @@ class NewProjectModal extends React.PureComponent {
             />
             <Button
               disabled={!isValid}
-              onClick={handleSubmit}
               isLoading={isSubmitting}
               appearance="green"
             >
               Create Project
             </Button>
-          </Root>
+          </Form>
         )}
       />
     );

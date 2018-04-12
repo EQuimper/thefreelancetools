@@ -2,6 +2,9 @@ import { inspect, wiretap } from 'mobx-wiretap/mst';
 
 import { CurrentTimer } from './CurrentTimer';
 import { ModalsManager } from './ModalsManager';
+import { Project, Projects } from './Projects';
+
+export { Project };
 
 const currentTimer = CurrentTimer.create({
   elapseTime: {
@@ -13,17 +16,16 @@ const currentTimer = CurrentTimer.create({
 
 const modalsManager = ModalsManager.create();
 
+const projects = Projects.create();
+
 wiretap('Freelance Tools');
 
 inspect('Current Timer', currentTimer);
 inspect('Modals Manager', modalsManager);
-
-// @ts-ignore
-window.currentTimer = currentTimer;
-// @ts-ignore
-window.modalsManager = modalsManager;
+inspect('Projects', projects);
 
 export const store = {
   currentTimer,
   modalsManager,
+  projects,
 };

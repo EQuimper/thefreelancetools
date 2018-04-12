@@ -1,3 +1,4 @@
+import { toaster } from 'evergreen-ui';
 import { destroy, getParent, types } from 'mobx-state-tree';
 
 export const Project = types
@@ -13,6 +14,11 @@ export const Project = types
   .actions(self => ({
     updateName(name: string) {
       self.name = name;
+    },
+  }))
+  .actions(() => ({
+    afterCreate() {
+      toaster.success('Project successfully created!');
     },
   }));
 

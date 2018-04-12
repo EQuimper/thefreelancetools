@@ -43,6 +43,7 @@
     "@types/react-dom": "^16.0.4",
     "@types/react-router-dom": "^4.2.6",
     "@types/recompose": "^0.24.7",
+    "@types/uuid": "^3.4.3",
     "@types/yup": "^0.24.3",
     "concurrently": "^3.5.1",
     "electron": "^1.8.4",
