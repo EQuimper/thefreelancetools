@@ -1,7 +1,7 @@
 import { Button } from 'evergreen-ui';
 import * as React from 'react';
 
-import { store } from '../../models';
+import { store } from '@freelance-tool/models';
 import { ModalTypeEnum } from '../../types';
 // import styled from 'styled-components';
 
@@ -22,7 +22,7 @@ class Projects extends React.PureComponent {
   render() {
     return (
       <div>
-        Hello
+        Hello world
         <Button onClick={this._openNewProjectModal}>Create New Project</Button>
       </div>
     );

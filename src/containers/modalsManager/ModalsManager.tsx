@@ -2,8 +2,9 @@ import { Dialog } from 'evergreen-ui';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import { NewProjectModal } from '../../components';
-import { store } from '../../models';
+import { NewProjectModal } from '@freelance-tool/components';
+import { store } from '@freelance-tool/models';
+
 import { ModalTypeEnum } from '../../types';
 // import styled from 'styled-components';
 
