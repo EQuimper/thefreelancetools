@@ -7,6 +7,7 @@
     "@freelance-tool/models": "0.1.0",
     "@freelance-tool/constants": "0.1.0",
     "@freelance-tool/commons": "0.1.0",
-    "@freelance-tool/types": "0.1.0"
+    "@freelance-tool/types": "0.1.0",
+    "@freelance-tool/utils": "0.1.0"
   }
 }

@@ -15,10 +15,17 @@ const LINKS = [
   {
     to: '/projects',
     title: 'Projects',
+    icon: null,
   },
   {
     to: '/invoices',
     title: 'Invoices',
+    icon: null,
+  },
+  {
+    to: '/clients',
+    title: 'Clients',
+    icon: null,
   },
   {
     to: '/time-tracker',
@@ -48,6 +55,7 @@ class Sidebar extends React.PureComponent<P, S> {
             handleLocationChange={this._handleLocationChange}
             isActive={this.props.location.pathname === el.to}
             title={el.title}
+            icon={el.icon}
           />
         ))}
       </Root>

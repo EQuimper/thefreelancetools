@@ -20,14 +20,16 @@ interface P {
   handleLocationChange: (path: string) => void;
   onClick?: () => void;
   children?: React.ReactNode;
+  icon: string | null;
 }
 
-const NavLink = ({ isActive, title, to, onClick }: P) => {
+const NavLink = ({ isActive, title, to, onClick, icon }: P) => {
   let _color;
 
   if (isActive) {
     _color = '#fff';
   }
+
   return (
     <Item onClick={onClick}>
       <Text color={_color}>{title}</Text>

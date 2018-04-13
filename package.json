@@ -13,7 +13,8 @@
     "src/constants",
     "src/commons",
     "src/containers",
-    "src/types"
+    "src/types",
+    "src/utils"
   ],
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.5",
