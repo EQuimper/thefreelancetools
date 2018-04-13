@@ -1,12 +1,19 @@
 import { onPatch, onSnapshot } from 'mobx-state-tree';
 
+import { ProjectPriorityEnum } from '@freelance-tool/types';
+
 import { Project, Projects } from './Projects';
 
 describe('Project model', () => {
   it('should create a instance of a model', () => {
     const name = 'My Project';
     const description = 'This is a description';
-    const myProject = Project.create({ name, id: '123', description });
+    const myProject = Project.create({
+      name,
+      id: '123',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
 
     expect(myProject.name).toBe(name);
     expect(myProject.description).toBe(description);
@@ -15,7 +22,12 @@ describe('Project model', () => {
   it('should be able to update the name', () => {
     const name = 'My Project';
     const description = 'This is a description';
-    const myProject = Project.create({ name, id: '123', description });
+    const myProject = Project.create({
+      name,
+      id: '123',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
     const updatedName = 'Hello World';
     const patches: any[] = [];
 
@@ -35,7 +47,12 @@ describe('Project model', () => {
   it('should be able to update the description', () => {
     const name = 'My Project';
     const description = 'This is a description';
-    const myProject = Project.create({ name, id: '123', description });
+    const myProject = Project.create({
+      name,
+      id: '123',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
     const updatedDescription = 'Hello World';
     const patches: any[] = [];
 
@@ -48,6 +65,33 @@ describe('Project model', () => {
     myProject.updateDescription(updatedDescription);
 
     expect(myProject.description).toBe(updatedDescription);
+
+    expect(patches).toMatchSnapshot();
+  });
+
+  it('should be able to update the priority', () => {
+    const name = 'My Project';
+    const description = 'This is a description';
+    const priority = ProjectPriorityEnum.LOW;
+    const myProject = Project.create({
+      name,
+      id: '123',
+      description,
+      priority,
+    });
+
+    const updatedPriority = ProjectPriorityEnum.HIGH;
+    const patches: any[] = [];
+
+    onPatch(myProject, patch => {
+      patches.push(patch);
+    });
+
+    expect(myProject.priority).toBe(priority);
+
+    myProject.updatePriority(updatedPriority);
+
+    expect(myProject.priority).toBe(updatedPriority);
 
     expect(patches).toMatchSnapshot();
   });
@@ -65,9 +109,19 @@ describe('Projects model', () => {
     const states: any[] = [];
     const name = 'My Project';
     const description = 'This is a description';
-    const myProject = Project.create({ name, id: '123', description });
+    const myProject = Project.create({
+      name,
+      id: '123',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
     const name2 = 'My Second Project';
-    const myProject2 = Project.create({ name: name2, id: '456', description });
+    const myProject2 = Project.create({
+      name: name2,
+      id: '456',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
 
     onSnapshot(projects, snapshot => {
       states.push(snapshot);
@@ -90,9 +144,19 @@ describe('Projects model', () => {
     const projects = Projects.create();
     const name = 'My Project';
     const description = 'This is a description';
-    const myProject = Project.create({ name, id: '123', description });
+    const myProject = Project.create({
+      name,
+      id: '123',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
     const name2 = 'My Second Project';
-    const myProject2 = Project.create({ name: name2, id: '456', description });
+    const myProject2 = Project.create({
+      name: name2,
+      id: '456',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
 
     projects.addProject(myProject);
 
@@ -108,9 +172,19 @@ describe('Projects model', () => {
     const states: any[] = [];
     const name = 'My Project';
     const description = 'This is a description';
-    const myProject = Project.create({ name, id: '123', description });
+    const myProject = Project.create({
+      name,
+      id: '123',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
     const name2 = 'My Second Project';
-    const myProject2 = Project.create({ name: name2, id: '456', description });
+    const myProject2 = Project.create({
+      name: name2,
+      id: '456',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
 
     onSnapshot(projects, snapshot => {
       states.push(snapshot);

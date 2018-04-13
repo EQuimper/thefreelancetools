@@ -20,6 +20,16 @@ Array [
 ]
 `;
 
+exports[`Project model should be able to update the priority 1`] = `
+Array [
+  Object {
+    "op": "replace",
+    "path": "/priority",
+    "value": "HIGH",
+  },
+]
+`;
+
 exports[`Projects model should be able to add new project when create 1`] = `
 Array [
   Object {
@@ -28,6 +38,7 @@ Array [
         "description": "This is a description",
         "id": "123",
         "name": "My Project",
+        "priority": "LOW",
       },
     ],
   },
@@ -37,11 +48,13 @@ Array [
         "description": "This is a description",
         "id": "123",
         "name": "My Project",
+        "priority": "LOW",
       },
       Object {
         "description": "This is a description",
         "id": "456",
         "name": "My Second Project",
+        "priority": "LOW",
       },
     ],
   },
@@ -56,6 +69,7 @@ Array [
         "description": "This is a description",
         "id": "123",
         "name": "My Project",
+        "priority": "LOW",
       },
     ],
   },
@@ -65,11 +79,13 @@ Array [
         "description": "This is a description",
         "id": "123",
         "name": "My Project",
+        "priority": "LOW",
       },
       Object {
         "description": "This is a description",
         "id": "456",
         "name": "My Second Project",
+        "priority": "LOW",
       },
     ],
   },
@@ -79,6 +95,7 @@ Array [
         "description": "This is a description",
         "id": "456",
         "name": "My Second Project",
+        "priority": "LOW",
       },
     ],
   },

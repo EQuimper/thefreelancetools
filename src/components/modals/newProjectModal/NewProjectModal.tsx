@@ -1,11 +1,20 @@
-import { Button } from 'evergreen-ui';
+import { Button, FormField } from 'evergreen-ui';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
-import { TextInput } from '@freelance-tool/commons';
+import { SegmentedControl, TextInput } from '@freelance-tool/commons';
 import { Project, store } from '@freelance-tool/models';
+import { ProjectPriorityEnum } from '@freelance-tool/types';
+import { capitalize } from '@freelance-tool/utils';
+
+const PRIORITY = ['HIGH', 'MEDIUM', 'LOW'];
+
+const OPTIONS = PRIORITY.map(el => ({
+  label: capitalize(el),
+  value: el,
+}));
 
 const Form = styled.form`
   display: grid;
@@ -16,6 +25,7 @@ const Form = styled.form`
 interface FormValues {
   name: string;
   description: string;
+  priority: ProjectPriorityEnum;
 }
 
 class NewProjectModal extends React.PureComponent {
@@ -37,10 +47,12 @@ class NewProjectModal extends React.PureComponent {
         validationSchema={Yup.object().shape({
           name: Yup.string().required('Project name is required'),
           description: Yup.string().required('A short description is required'),
+          priority: Yup.mixed().oneOf(['HIGH', 'MEDIUM', 'LOW']),
         })}
         initialValues={{
           name: '',
           description: '',
+          priority: ProjectPriorityEnum.HIGH,
         }}
         onSubmit={this._handleSubmit}
         render={({
@@ -80,6 +92,14 @@ class NewProjectModal extends React.PureComponent {
               isRequired
               errorMessage={errors.description}
             />
+            <FormField isRequired label="Project Priority">
+              <SegmentedControl
+                options={OPTIONS}
+                value={values.priority}
+                name="priority"
+                onSelect={setFieldValue}
+              />
+            </FormField>
             <Button
               disabled={!isValid}
               isLoading={isSubmitting}

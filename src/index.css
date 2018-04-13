@@ -7,3 +7,8 @@ body {
 button {
   -webkit-app-region: no-drag;
 }
+
+span {
+  user-select: none;
+  -webkit-app-region: drag;
+}

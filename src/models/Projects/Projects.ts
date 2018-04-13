@@ -2,11 +2,14 @@ import { toaster } from 'evergreen-ui';
 import { destroy, getParent, types } from 'mobx-state-tree';
 import * as uuid from 'uuid/v4';
 
+import { ProjectPriorityEnum } from '@freelance-tool/types';
+
 export const Project = types
   .model('Project', {
     id: types.optional(types.identifier(), () => uuid()),
     name: types.string,
     description: types.string,
+    priority: types.enumeration('Priority', ['HIGH', 'MEDIUM', 'LOW']),
   })
   .actions(self => ({
     remove() {
@@ -21,6 +24,11 @@ export const Project = types
   .actions(self => ({
     updateDescription(description: string) {
       self.description = description;
+    },
+  }))
+  .actions(self => ({
+    updatePriority(priority: ProjectPriorityEnum) {
+      self.priority = priority;
     },
   }))
   .actions(() => ({
