@@ -25,7 +25,7 @@ class Projects extends React.Component {
     const { projects } = store;
     return (
       <div>
-        Hello world
+        Hello world!!
         <Button onClick={this._openNewProjectModal}>Create New Project</Button>
         <div>
           {projects.projects.map(el => (
