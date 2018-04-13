@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Text } from 'evergreen-ui';
 import { observer } from 'mobx-react';
 import * as React from 'react';
@@ -6,7 +7,7 @@ import styled from 'styled-components';
 
 import { ProjectCard } from '@freelance-tool/components';
 import { store } from '@freelance-tool/models';
-import { ModalTypeEnum } from '@freelance-tool/types';
+import { ModalTypeEnum, SidebarIconEnum } from '@freelance-tool/types';
 
 const Root = styled.div`
   display: grid;
@@ -19,6 +20,11 @@ const TopWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const Icon = styled(FontAwesomeIcon)`
+  color: #364F65;
+  margin-right: 10px;
 `;
 
 const Grid = styled.div`
@@ -52,7 +58,10 @@ class Projects extends React.Component<RouteComponentProps<P>, S> {
     return (
       <Root>
         <TopWrapper>
-          <Text size={900}>My Projects</Text>
+          <div>
+            <Icon icon={SidebarIconEnum.PROJECTS} size="2x" />
+            <Text size={900}>My Projects</Text>
+          </div>
           <Button height={38} onClick={this._openNewProjectModal}>
             Create New Project
           </Button>

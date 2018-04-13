@@ -1,14 +1,20 @@
-import fontawesome from '@fortawesome/fontawesome';
-import * as faClock from '@fortawesome/fontawesome-free-solid/faClock';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faClock,
+  faFileAlt,
+  faFolder,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import styled from 'styled-components';
-
-fontawesome.library.add(faClock);
+import styled, { ThemeProvider } from 'styled-components';
 
 import { Sidebar } from './components';
+import { theme } from './constants';
 import { ModalsManager } from './containers';
 import Routes from './Routes';
+
+library.add(faClock, faUsers, faFolder, faFileAlt);
 
 const Layout = styled.div`
   display: grid;
@@ -23,15 +29,17 @@ const Content = styled.div`
 class App extends React.Component {
   render() {
     return (
-      <Router>
-        <Layout>
-          <Sidebar />
-          <Content>
-            <Routes />
-          </Content>
-          <ModalsManager />
-        </Layout>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Layout>
+            <Sidebar />
+            <Content>
+              <Routes />
+            </Content>
+            <ModalsManager />
+          </Layout>
+        </Router>
+      </ThemeProvider>
     );
   }
 }

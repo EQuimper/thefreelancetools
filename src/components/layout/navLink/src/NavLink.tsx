@@ -1,7 +1,11 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Text } from 'evergreen-ui';
 import * as React from 'react';
 import { compose, onlyUpdateForKeys, withHandlers } from 'recompose';
-import styled from 'styled-components';
+import { ThemedStyledProps } from 'styled-components';
+
+import { styled } from '@freelance-tool/commons';
+import { SidebarIconEnum, ThemeInterface } from '@freelance-tool/types';
 
 const Item = styled.div`
   height: 50px;
@@ -13,6 +17,16 @@ const Item = styled.div`
   flex-direction: row;
 `;
 
+interface IconProps {
+  active: boolean;
+}
+
+const Icon = styled(FontAwesomeIcon)`
+  color: ${(props: ThemedStyledProps<IconProps, ThemeInterface>) =>
+    props.active ? '#fff' : props.theme.mainDark};
+  margin-right: 10px;
+`;
+
 interface P {
   isActive: boolean;
   title: string;
@@ -20,7 +34,7 @@ interface P {
   handleLocationChange: (path: string) => void;
   onClick?: () => void;
   children?: React.ReactNode;
-  icon: string | null;
+  icon: SidebarIconEnum;
 }
 
 const NavLink = ({ isActive, title, to, onClick, icon }: P) => {
@@ -32,6 +46,8 @@ const NavLink = ({ isActive, title, to, onClick, icon }: P) => {
 
   return (
     <Item onClick={onClick}>
+      {/* @ts-ignore */}
+      {icon && <Icon icon={icon} active={isActive} />}
       <Text color={_color}>{title}</Text>
     </Item>
   );
