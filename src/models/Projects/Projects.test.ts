@@ -5,14 +5,17 @@ import { Project, Projects } from './Projects';
 describe('Project model', () => {
   it('should create a instance of a model', () => {
     const name = 'My Project';
-    const myProject = Project.create({ name, id: '123' });
+    const description = 'This is a description';
+    const myProject = Project.create({ name, id: '123', description });
 
     expect(myProject.name).toBe(name);
+    expect(myProject.description).toBe(description);
   });
 
   it('should be able to update the name', () => {
     const name = 'My Project';
-    const myProject = Project.create({ name, id: '123' });
+    const description = 'This is a description';
+    const myProject = Project.create({ name, id: '123', description });
     const updatedName = 'Hello World';
     const patches: any[] = [];
 
@@ -23,6 +26,28 @@ describe('Project model', () => {
     expect(myProject.name).toBe(name);
 
     myProject.updateName(updatedName);
+
+    expect(myProject.name).toBe(updatedName);
+
+    expect(patches).toMatchSnapshot();
+  });
+
+  it('should be able to update the description', () => {
+    const name = 'My Project';
+    const description = 'This is a description';
+    const myProject = Project.create({ name, id: '123', description });
+    const updatedDescription = 'Hello World';
+    const patches: any[] = [];
+
+    onPatch(myProject, patch => {
+      patches.push(patch);
+    });
+
+    expect(myProject.description).toBe(description);
+
+    myProject.updateDescription(updatedDescription);
+
+    expect(myProject.description).toBe(updatedDescription);
 
     expect(patches).toMatchSnapshot();
   });
@@ -39,9 +64,10 @@ describe('Projects model', () => {
     const projects = Projects.create();
     const states: any[] = [];
     const name = 'My Project';
-    const myProject = Project.create({ name, id: '123' });
+    const description = 'This is a description';
+    const myProject = Project.create({ name, id: '123', description });
     const name2 = 'My Second Project';
-    const myProject2 = Project.create({ name: name2, id: '456' });
+    const myProject2 = Project.create({ name: name2, id: '456', description });
 
     onSnapshot(projects, snapshot => {
       states.push(snapshot);
@@ -63,9 +89,10 @@ describe('Projects model', () => {
   it('should be able to get a computed value of the amount of projects', () => {
     const projects = Projects.create();
     const name = 'My Project';
-    const myProject = Project.create({ name, id: '123' });
+    const description = 'This is a description';
+    const myProject = Project.create({ name, id: '123', description });
     const name2 = 'My Second Project';
-    const myProject2 = Project.create({ name: name2, id: '456' });
+    const myProject2 = Project.create({ name: name2, id: '456', description });
 
     projects.addProject(myProject);
 
@@ -80,9 +107,10 @@ describe('Projects model', () => {
     const projects = Projects.create();
     const states: any[] = [];
     const name = 'My Project';
-    const myProject = Project.create({ name, id: '123' });
+    const description = 'This is a description';
+    const myProject = Project.create({ name, id: '123', description });
     const name2 = 'My Second Project';
-    const myProject2 = Project.create({ name: name2, id: '456' });
+    const myProject2 = Project.create({ name: name2, id: '456', description });
 
     onSnapshot(projects, snapshot => {
       states.push(snapshot);

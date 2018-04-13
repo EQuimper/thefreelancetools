@@ -1,4 +1,4 @@
-import { TextInput as Input } from 'evergreen-ui';
+import { TextInputField as Input } from 'evergreen-ui';
 import * as React from 'react';
 
 interface P {
@@ -7,12 +7,19 @@ interface P {
   name: string;
   value: string;
   placeholder: string;
+  label: string;
   disabled: boolean;
   isInvalid: boolean;
   fullWidth?: boolean;
+  isRequired?: boolean;
+  errorMessage?: string;
 }
 
 class TextInput extends React.PureComponent<P> {
+  static defaultProps = {
+    isRequired: false,
+  };
+
   _handleChange = (e: InputEvent) => {
     const { handleChange, name } = this.props;
     handleChange(name, e.target.value);
@@ -28,9 +35,12 @@ class TextInput extends React.PureComponent<P> {
       name,
       value,
       placeholder,
+      label,
       disabled,
       isInvalid,
       fullWidth,
+      isRequired,
+      errorMessage,
     } = this.props;
 
     const _style: any = {};
@@ -48,6 +58,9 @@ class TextInput extends React.PureComponent<P> {
         onBlur={this._handleBlur}
         disabled={disabled}
         isInvalid={isInvalid}
+        label={label}
+        required={isRequired}
+        validationMessage={isInvalid && errorMessage}
         {..._style}
       />
     );

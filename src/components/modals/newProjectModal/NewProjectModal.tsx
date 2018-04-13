@@ -2,7 +2,6 @@ import { Button } from 'evergreen-ui';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import styled from 'styled-components';
-import * as uuid from 'uuid/v4';
 import * as Yup from 'yup';
 
 import { TextInput } from '@freelance-tool/commons';
@@ -16,6 +15,7 @@ const Form = styled.form`
 
 interface FormValues {
   name: string;
+  description: string;
 }
 
 class NewProjectModal extends React.PureComponent {
@@ -23,8 +23,7 @@ class NewProjectModal extends React.PureComponent {
 
   _handleSubmit = (values: FormValues, bag: FormikProps<FormValues>) => {
     const project = Project.create({
-      name: values.name,
-      id: uuid(),
+      ...values,
     });
 
     store.projects.addProject(project);
@@ -36,10 +35,12 @@ class NewProjectModal extends React.PureComponent {
     return (
       <Formik
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(),
+          name: Yup.string().required('Project name is required'),
+          description: Yup.string().required('A short description is required'),
         })}
         initialValues={{
           name: '',
+          description: '',
         }}
         onSubmit={this._handleSubmit}
         render={({
@@ -55,6 +56,7 @@ class NewProjectModal extends React.PureComponent {
           <Form onSubmit={handleSubmit}>
             <TextInput
               name="name"
+              label="Name of the project"
               placeholder="Name of the project"
               value={values.name}
               handleChange={setFieldValue}
@@ -62,6 +64,21 @@ class NewProjectModal extends React.PureComponent {
               disabled={isSubmitting}
               isInvalid={!!(errors.name && touched.name)}
               fullWidth
+              isRequired
+              errorMessage={errors.name}
+            />
+            <TextInput
+              name="description"
+              label="Short description"
+              placeholder="Short description"
+              value={values.description}
+              handleChange={setFieldValue}
+              handleBlur={setFieldTouched}
+              disabled={isSubmitting}
+              isInvalid={!!(errors.description && touched.description)}
+              fullWidth
+              isRequired
+              errorMessage={errors.description}
             />
             <Button
               disabled={!isValid}

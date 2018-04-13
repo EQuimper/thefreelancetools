@@ -1,4 +1,5 @@
 import { Button } from 'evergreen-ui';
+import { observer } from 'mobx-react';
 import * as React from 'react';
 
 import { store } from '@freelance-tool/models';
@@ -9,7 +10,8 @@ import { ModalTypeEnum } from '@freelance-tool/types';
 //   display: grid;
 // `;
 
-class Projects extends React.PureComponent {
+@observer
+class Projects extends React.Component {
   state = {};
   _openNewProjectModal = () => {
     store.modalsManager.open({
@@ -20,10 +22,18 @@ class Projects extends React.PureComponent {
   }
 
   render() {
+    const { projects } = store;
     return (
       <div>
         Hello world
         <Button onClick={this._openNewProjectModal}>Create New Project</Button>
+        <div>
+          {projects.projects.map(el => (
+            <div key={String(el.id)}>
+              <p>{el.name}</p>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
