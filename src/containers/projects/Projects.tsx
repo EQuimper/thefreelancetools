@@ -1,14 +1,42 @@
-import { Button } from 'evergreen-ui';
+import { Button, Pane, Text } from 'evergreen-ui';
 import { observer } from 'mobx-react';
 import * as React from 'react';
+import styled from 'styled-components';
 
 import { store } from '@freelance-tool/models';
 import { ModalTypeEnum } from '@freelance-tool/types';
-// import styled from 'styled-components';
 
-// const Root = styled.div`
-//   display: grid;
-// `;
+const Root = styled.div`
+  display: grid;
+  grid-template-rows: 70px auto;
+  grid-gap: 20px;
+  padding: 0px 16px 40px;
+`;
+
+const TopWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  grid-auto-rows: minmax(200px, auto);
+`;
+
+const Card = styled(Pane).attrs({
+  appearance: 'tint3',
+  elevation: 1,
+  hoverElevation: 3,
+})`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 5px;
+`;
 
 @observer
 class Projects extends React.Component {
@@ -24,17 +52,21 @@ class Projects extends React.Component {
   render() {
     const { projects } = store;
     return (
-      <div>
-        Hello world!!
-        <Button onClick={this._openNewProjectModal}>Create New Project</Button>
-        <div>
+      <Root>
+        <TopWrapper>
+          <Text size={900}>My Project</Text>
+          <Button height={38} onClick={this._openNewProjectModal}>
+            Create New Project
+          </Button>
+        </TopWrapper>
+        <Grid>
           {projects.projects.map(el => (
-            <div key={String(el.id)}>
+            <Card key={String(el.id)}>
               <p>{el.name}</p>
-            </div>
+            </Card>
           ))}
-        </div>
-      </div>
+        </Grid>
+      </Root>
     );
   }
 }
