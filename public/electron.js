@@ -13,7 +13,12 @@ if (isDev) {
 let mainWindow;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 1300, height: 800 });
+  mainWindow = new BrowserWindow({
+    width: 1300,
+    height: 800,
+    minHeight: 500,
+    minWidth: 900,
+  });
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:3000'
