@@ -1,4 +1,4 @@
 export const colors = {
   sidebarBackground: '#252D35',
-  mainDark: '#364F65',
+  mainDark: '#435a6f',
 };

@@ -10,6 +10,7 @@ const Root = styled.div`
   background-color: ${props => props.theme.sidebarBackground};
   display: flex;
   flex-direction: column;
+  padding-top: 30px;
 `;
 
 const LINKS: Array<{
