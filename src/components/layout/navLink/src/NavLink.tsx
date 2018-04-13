@@ -18,12 +18,12 @@ const Item = styled.div`
 `;
 
 interface IconProps {
-  active: boolean;
+  active: string;
 }
 
 const Icon = styled(FontAwesomeIcon)`
   color: ${(props: ThemedStyledProps<IconProps, ThemeInterface>) =>
-    props.active ? '#fff' : props.theme.mainDark};
+    props.active === 'true' ? '#fff' : props.theme.mainDark};
   margin-right: 10px;
 `;
 
@@ -47,7 +47,7 @@ const NavLink = ({ isActive, title, to, onClick, icon }: P) => {
   return (
     <Item onClick={onClick}>
       {/* @ts-ignore */}
-      {icon && <Icon icon={icon} active={isActive} />}
+      {icon && <Icon icon={icon} active={String(isActive)} />}
       <Text color={_color}>{title}</Text>
     </Item>
   );
