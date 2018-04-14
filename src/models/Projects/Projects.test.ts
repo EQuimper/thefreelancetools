@@ -101,7 +101,27 @@ describe('Projects model', () => {
   it('should create a instance of a model', () => {
     const projects = Projects.create();
 
-    expect(projects.projects.length).toBe(0);
+    expect(projects.projects.size).toBe(0);
+  });
+
+  it('should return a project by id when call getProjectById', () => {
+    const projects = Projects.create();
+
+    const id = '123';
+    const name = 'A project';
+    const description = 'A description';
+    const priority = ProjectPriorityEnum.HIGH;
+
+    const myProject = Project.create({
+      id,
+      name,
+      description,
+      priority,
+    });
+
+    projects.addProject(myProject);
+
+    expect(projects.getProjectById(id)).toEqual(myProject);
   });
 
   it('should be able to add new project when create', () => {
@@ -129,13 +149,15 @@ describe('Projects model', () => {
 
     projects.addProject(myProject);
 
-    expect(projects.projects.length).toBe(1);
-    expect(projects.projects[0].name).toBe(name);
+    expect(projects.projects.size).toBe(1);
+
+    expect(projects.getProjectById(String(myProject.id))).toEqual(myProject);
 
     projects.addProject(myProject2);
 
-    expect(projects.projects.length).toBe(2);
-    expect(projects.projects[1].name).toBe(name2);
+    expect(projects.projects.size).toBe(2);
+
+    expect(projects.getProjectById(String(myProject2.id))).toEqual(myProject2);
 
     expect(states).toMatchSnapshot();
   });
@@ -193,11 +215,11 @@ describe('Projects model', () => {
     projects.addProject(myProject);
     projects.addProject(myProject2);
 
-    expect(projects.projects.length).toBe(2);
+    expect(projects.projects.size).toBe(2);
 
     myProject.remove();
 
-    expect(projects.projects.length).toBe(1);
+    expect(projects.projects.size).toBe(1);
 
     expect(states).toMatchSnapshot();
   });

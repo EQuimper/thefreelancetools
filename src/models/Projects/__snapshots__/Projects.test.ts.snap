@@ -33,30 +33,30 @@ Array [
 exports[`Projects model should be able to add new project when create 1`] = `
 Array [
   Object {
-    "projects": Array [
-      Object {
+    "projects": Object {
+      "123": Object {
         "description": "This is a description",
         "id": "123",
         "name": "My Project",
         "priority": "LOW",
       },
-    ],
+    },
   },
   Object {
-    "projects": Array [
-      Object {
+    "projects": Object {
+      "123": Object {
         "description": "This is a description",
         "id": "123",
         "name": "My Project",
         "priority": "LOW",
       },
-      Object {
+      "456": Object {
         "description": "This is a description",
         "id": "456",
         "name": "My Second Project",
         "priority": "LOW",
       },
-    ],
+    },
   },
 ]
 `;
@@ -64,40 +64,40 @@ Array [
 exports[`Projects model should be able to remove a project 1`] = `
 Array [
   Object {
-    "projects": Array [
-      Object {
+    "projects": Object {
+      "123": Object {
         "description": "This is a description",
         "id": "123",
         "name": "My Project",
         "priority": "LOW",
       },
-    ],
+    },
   },
   Object {
-    "projects": Array [
-      Object {
+    "projects": Object {
+      "123": Object {
         "description": "This is a description",
         "id": "123",
         "name": "My Project",
         "priority": "LOW",
       },
-      Object {
+      "456": Object {
         "description": "This is a description",
         "id": "456",
         "name": "My Second Project",
         "priority": "LOW",
       },
-    ],
+    },
   },
   Object {
-    "projects": Array [
-      Object {
+    "projects": Object {
+      "456": Object {
         "description": "This is a description",
         "id": "456",
         "name": "My Second Project",
         "priority": "LOW",
       },
-    ],
+    },
   },
 ]
 `;

@@ -39,11 +39,11 @@ export const Project = types
 
 export const Projects = types
   .model('Projects', {
-    projects: types.optional(types.array(Project), []),
+    projects: types.optional(types.map(Project), {}),
   })
   .actions(self => ({
     addProject(project: typeof Project.Type) {
-      self.projects.push(project);
+      self.projects.put(project);
     },
   }))
   .actions(self => ({
@@ -53,6 +53,16 @@ export const Projects = types
   }))
   .views(self => ({
     get totalProjectsAmount() {
-      return self.projects.length;
+      return self.projects.size;
+    },
+  }))
+  .views(self => ({
+    getProjectById(id: string) {
+      return self.projects.get(id);
+    },
+  }))
+  .views(self => ({
+    get getProjects() {
+      return self.projects;
     },
   }));

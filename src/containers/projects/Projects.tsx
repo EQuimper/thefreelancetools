@@ -23,7 +23,7 @@ const TopWrapper = styled.div`
 `;
 
 const Icon = styled(FontAwesomeIcon)`
-  color: #364F65;
+  color: #364f65;
   margin-right: 10px;
 `;
 
@@ -67,12 +67,12 @@ class Projects extends React.Component<RouteComponentProps<P>, S> {
           </Button>
         </TopWrapper>
         <Grid>
-          {projects.projects.map(el => (
+          {Array.from(projects.getProjects).map(([key, value]) => (
             <ProjectCard
               onCardPress={this._onCardPress}
-              {...el}
-              key={String(el.id)}
-              id={String(el.id)}
+              {...value}
+              key={key}
+              id={key}
             />
           ))}
         </Grid>

@@ -17,13 +17,13 @@ function createWindow() {
     width: 1300,
     height: 800,
     minHeight: 500,
-    minWidth: 900,
+    minWidth: 1000,
     webPreferences: {
       nodeIntegration: false,
     },
     // titleBarStyle: 'hidden',
     titleBarStyle: 'hiddenInset',
-    frame: false
+    frame: false,
   });
   mainWindow.loadURL(
     isDev

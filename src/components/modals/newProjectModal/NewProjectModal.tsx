@@ -1,6 +1,7 @@
 import { Button, FormField } from 'evergreen-ui';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
@@ -28,9 +29,11 @@ interface FormValues {
   priority: ProjectPriorityEnum;
 }
 
-class NewProjectModal extends React.PureComponent {
-  state = {};
+interface P {}
 
+interface S {}
+
+class NewProjectModal extends React.PureComponent<RouteComponentProps<P>, S> {
   _handleSubmit = (values: FormValues, bag: FormikProps<FormValues>) => {
     const project = Project.create({
       ...values,
@@ -39,6 +42,8 @@ class NewProjectModal extends React.PureComponent {
     store.projects.addProject(project);
 
     store.modalsManager.close();
+
+    this.props.history.push(`/projects/${project.id}`);
   }
 
   render() {
@@ -114,4 +119,4 @@ class NewProjectModal extends React.PureComponent {
   }
 }
 
-export default NewProjectModal;
+export default withRouter(NewProjectModal);
