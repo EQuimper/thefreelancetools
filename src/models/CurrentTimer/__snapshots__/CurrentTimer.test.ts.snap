@@ -8,8 +8,10 @@ Array [
       "minutes": 0,
       "seconds": 0,
     },
-    "intervalId": 3,
+    "intervalId": 14,
     "isRunning": true,
+    "project": "123",
+    "task": "999",
   },
   Object {
     "elapseTime": Object {
@@ -17,8 +19,10 @@ Array [
       "minutes": 0,
       "seconds": 1,
     },
-    "intervalId": 3,
+    "intervalId": 14,
     "isRunning": true,
+    "project": "123",
+    "task": "999",
   },
   Object {
     "elapseTime": Object {
@@ -28,6 +32,8 @@ Array [
     },
     "intervalId": null,
     "isRunning": false,
+    "project": "123",
+    "task": "999",
   },
   Object {
     "elapseTime": Object {
@@ -35,8 +41,10 @@ Array [
       "minutes": 0,
       "seconds": 1,
     },
-    "intervalId": 4,
+    "intervalId": 16,
     "isRunning": true,
+    "project": "123",
+    "task": "999",
   },
   Object {
     "elapseTime": Object {
@@ -44,8 +52,10 @@ Array [
       "minutes": 0,
       "seconds": 2,
     },
-    "intervalId": 4,
+    "intervalId": 16,
     "isRunning": true,
+    "project": "123",
+    "task": "999",
   },
   Object {
     "elapseTime": Object {
@@ -55,6 +65,8 @@ Array [
     },
     "intervalId": null,
     "isRunning": false,
+    "project": "123",
+    "task": "999",
   },
   Object {
     "elapseTime": Object {
@@ -64,6 +76,8 @@ Array [
     },
     "intervalId": null,
     "isRunning": false,
+    "project": "123",
+    "task": "999",
   },
 ]
 `;
@@ -76,8 +90,10 @@ Array [
       "minutes": 0,
       "seconds": 0,
     },
-    "intervalId": 2,
+    "intervalId": 8,
     "isRunning": true,
+    "project": "123",
+    "task": "999",
   },
   Object {
     "elapseTime": Object {
@@ -85,8 +101,10 @@ Array [
       "minutes": 0,
       "seconds": 1,
     },
-    "intervalId": 2,
+    "intervalId": 8,
     "isRunning": true,
+    "project": "123",
+    "task": "999",
   },
   Object {
     "elapseTime": Object {
@@ -96,6 +114,8 @@ Array [
     },
     "intervalId": null,
     "isRunning": false,
+    "project": "123",
+    "task": "999",
   },
 ]
 `;

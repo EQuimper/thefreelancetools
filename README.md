@@ -14,3 +14,7 @@ Built with electron an react
 - Time Tracker -> to invoice
 - Projects managing
 - Invoice managing
+
+## TODO
+
+- Get project by priority order

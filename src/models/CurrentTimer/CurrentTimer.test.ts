@@ -1,10 +1,27 @@
 import { onSnapshot } from 'mobx-state-tree';
 
 import { CurrentTimer } from '../CurrentTimer';
+import { Project, Task } from '../Projects';
 
 jest.useFakeTimers();
 
 describe('CurrentTimer model', () => {
+  let task: typeof Task.Type;
+  let project: typeof Project.Type;
+
+  beforeEach(() => {
+    task = Task.create({
+      name: 'My Task',
+      id: '999',
+    });
+
+    project = Project.create({
+      id: '123',
+      name: 'My Project',
+      description: 'A description',
+      priority: 'HIGH',
+    });
+  });
   it('should create a instance of a model', () => {
     const currentTimer = CurrentTimer.create({
       elapseTime: {
@@ -32,10 +49,10 @@ describe('CurrentTimer model', () => {
       },
     });
 
-    currentTimer.start();
+    currentTimer.start(project, task);
 
     expect(currentTimer.isRunning).toBe(true);
-    expect(currentTimer.intervalId).toBe(1);
+    expect(currentTimer.intervalId).toBe(5);
     expect(setInterval).toHaveBeenCalledTimes(1);
     expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 1000);
   });
@@ -55,7 +72,7 @@ describe('CurrentTimer model', () => {
       states.push(snapshot);
     });
 
-    currentTimer.start();
+    currentTimer.start(project, task);
 
     expect(setInterval).toHaveBeenCalledTimes(2);
 
@@ -86,7 +103,7 @@ describe('CurrentTimer model', () => {
       states.push(snapshot);
     });
 
-    currentTimer.start();
+    currentTimer.start(project, task);
 
     expect(setInterval).toHaveBeenCalledTimes(3);
 
@@ -99,7 +116,7 @@ describe('CurrentTimer model', () => {
     expect(currentTimer.isRunning).toBe(false);
     expect(currentTimer.intervalId).toBe(null);
 
-    currentTimer.start();
+    currentTimer.start(project, task);
 
     jest.runOnlyPendingTimers();
 

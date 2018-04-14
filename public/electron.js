@@ -7,7 +7,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 if (isDev) {
-  require('electron-debug')({ showDevTools: true });
+  require('electron-debug')({ showDevTools: false });
 }
 
 let mainWindow;
@@ -22,8 +22,8 @@ function createWindow() {
       nodeIntegration: false,
     },
     // titleBarStyle: 'hidden',
-    titleBarStyle: 'hiddenInset',
-    frame: false,
+    // titleBarStyle: 'hiddenInset',
+    // frame: false,
   });
   mainWindow.loadURL(
     isDev

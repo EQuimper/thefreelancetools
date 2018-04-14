@@ -1,5 +1,9 @@
 import { types } from 'mobx-state-tree';
 
+import { humanizeTime } from '@freelance-tool/utils';
+
+import { Project, Task } from '../Projects';
+
 export const CurrentTimer = types
   .model('CurrentTimer', {
     elapseTime: types.model({
@@ -9,6 +13,8 @@ export const CurrentTimer = types
     }),
     isRunning: false,
     intervalId: types.maybe(types.number),
+    project: types.maybe(types.reference(Project)),
+    task: types.maybe(types.reference(Task)),
   })
   .actions(self => ({
     updateElapseTime() {
@@ -26,9 +32,11 @@ export const CurrentTimer = types
     },
   }))
   .actions(self => ({
-    start() {
+    start(project: typeof Project.Type, task: typeof Task.Type) {
       self.intervalId = Number(setInterval(self.updateElapseTime, 1000));
       self.isRunning = true;
+      self.project = project;
+      self.task = task;
     },
   }))
   .actions(self => ({
@@ -47,6 +55,26 @@ export const CurrentTimer = types
         minutes: 0,
         seconds: 0,
       };
+    },
+  }))
+  .actions(self => ({
+    finish() {
+      if (self.task) {
+        const elapseTime = `${humanizeTime(
+          String(self.elapseTime.hours),
+        )}:${humanizeTime(String(self.elapseTime.minutes))}:${humanizeTime(
+          String(self.elapseTime.seconds),
+        )}`;
+
+        self.task.end(elapseTime);
+        self.task = null;
+      }
+
+      if (self.project) {
+        self.project = null;
+      }
+
+      self.reset();
     },
   }))
   .views(self => ({

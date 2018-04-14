@@ -2,9 +2,9 @@ import { inspect, wiretap } from 'mobx-wiretap/mst';
 
 import { CurrentTimer } from './CurrentTimer';
 import { ModalsManager } from './ModalsManager';
-import { Project, Projects } from './Projects';
+import { Project, Projects, Task } from './Projects';
 
-export { Project };
+export { Project, Task };
 
 const currentTimer = CurrentTimer.create({
   elapseTime: {

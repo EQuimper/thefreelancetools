@@ -1,40 +1,32 @@
-import { Button, Text } from 'evergreen-ui';
-import { inject, observer } from 'mobx-react';
+import { Button, Combobox, Text, TextInput } from 'evergreen-ui';
+import { observer } from 'mobx-react';
+import * as R from 'ramda';
 import * as React from 'react';
 
-const humanizeTime = (time: string): string => {
-  if (time.length === 1) {
-    return `0${time}`;
-  }
+import { store, Task } from '@freelance-tool/models';
+import { humanizeTime } from '@freelance-tool/utils';
 
-  return time;
-};
-
-interface P {
-  currentTimer: {
-    elapseTime: {
-      hours: number;
-      minutes: number;
-      seconds: number;
-    };
-    isRunning: boolean;
-    intervalId: number | null;
-    start: () => void;
-    stop: () => void;
-    reset: () => void;
-    getCurrentElapseTime: number;
-  };
+interface OptionItem {
+  label: string;
+  value: string;
 }
 
-interface S {}
+interface P {}
 
-@inject('currentTimer')
+interface S {
+  selectedProject: OptionItem | null;
+  taskName: string;
+}
+
 @observer
 class CurrentTimer extends React.Component<P, S> {
-  state = {};
+  state = {
+    selectedProject: null,
+    taskName: '',
+  };
 
   _getTime() {
-    const { elapseTime } = this.props.currentTimer;
+    const { elapseTime } = store.currentTimer;
 
     const hours = humanizeTime(String(elapseTime.hours));
     const minutesStr = humanizeTime(String(elapseTime.minutes));
@@ -43,16 +35,64 @@ class CurrentTimer extends React.Component<P, S> {
     return `${hours}:${minutesStr}:${secondsStr}`;
   }
 
+  _handleStart = () => {
+    const getId = R.pathOr('', ['selectedProject', 'value']);
+
+    const project = store.projects.getProjectById(getId(this.state));
+
+    if (project) {
+      const task = Task.create({
+        name: this.state.taskName,
+      });
+
+      project.addTask(task);
+      store.currentTimer.start(project, task);
+    }
+  }
+
+  _handleProjectChange = (value: OptionItem) => {
+    this.setState({
+      selectedProject: value,
+    });
+  }
+
   render() {
-    const { currentTimer } = this.props;
+    const { currentTimer, projects } = store;
+
     return (
       <div>
+        <Combobox
+          placeholder="Project"
+          autocompleteProps={{
+            title: 'Project Name',
+            itemsFilter: (items: OptionItem[], input: string) =>
+              items.filter(el => el.label.includes(input)),
+          }}
+          openOnFocus
+          items={projects.getProjectsOptions}
+          onChange={this._handleProjectChange}
+          itemToString={(i: OptionItem) => (i ? i.label : '')}
+          selectedItem={this.state.selectedProject}
+        />
+
+        <br />
+        <br />
+        <TextInput
+          onChange={(e: InputEvent) => this.setState({ taskName: e.target.value })}
+          value={this.state.taskName}
+        />
+        <br />
+        <br />
+
         <Text>ElapseTime {this._getTime()}</Text>
-        <Button appearance="green" onClick={currentTimer.start}>
+        <Button appearance="green" onClick={this._handleStart}>
           Start
         </Button>
         <Button marginLeft={12} appearance="red" onClick={currentTimer.stop}>
           Stop
+        </Button>
+        <Button marginLeft={12} appearance="ghost" onClick={currentTimer.finish}>
+          Finish
         </Button>
         <Button
           marginLeft={12}

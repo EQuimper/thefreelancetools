@@ -32,7 +32,6 @@ interface P {
   title: string;
   to: string;
   handleLocationChange: (path: string) => void;
-  children?: React.ReactNode;
   icon: SidebarIconEnum;
 }
 

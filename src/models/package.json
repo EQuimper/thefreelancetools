@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "index.ts",
   "dependencies": {
-    "@freelance-tool/types": "0.1.0"
+    "@freelance-tool/types": "0.1.0",
+    "@freelance-tool/utils": "0.1.0"
   }
 }

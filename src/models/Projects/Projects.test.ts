@@ -2,7 +2,7 @@ import { onPatch, onSnapshot } from 'mobx-state-tree';
 
 import { ProjectPriorityEnum } from '@freelance-tool/types';
 
-import { Project, Projects } from './Projects';
+import { Project, Projects, Task } from './Projects';
 
 describe('Project model', () => {
   it('should create a instance of a model', () => {
@@ -94,6 +94,45 @@ describe('Project model', () => {
     expect(myProject.priority).toBe(updatedPriority);
 
     expect(patches).toMatchSnapshot();
+  });
+
+  it('should return the totalTime for the tasks', () => {
+    const project = Project.create({
+      name: 'My Project',
+      description: 'Description',
+      id: '123',
+      priority: ProjectPriorityEnum.HIGH,
+    });
+
+    const task1 = Task.create({
+      name: 'task1',
+      id: 'task1',
+    });
+
+    const task2 = Task.create({
+      name: 'task2',
+      id: 'task2',
+    });
+
+    const task3 = Task.create({
+      name: 'task3',
+      id: 'task3',
+    });
+
+    task1.end('00:10:10');
+    task2.end('01:15:10');
+    task3.end('02:00:00');
+
+    project.addTask(task1);
+    project.addTask(task2);
+    project.addTask(task3);
+
+    expect(project.totalTime).toEqual({
+      hours: 3,
+      minutes: 25,
+      seconds: 20,
+      totalSeconds: 12320,
+    });
   });
 });
 
@@ -222,5 +261,39 @@ describe('Projects model', () => {
     expect(projects.projects.size).toBe(1);
 
     expect(states).toMatchSnapshot();
+  });
+
+  it('should return an Array of { label, id } when call getProjectsOptions', () => {
+    const projects = Projects.create();
+    const name = 'My Project';
+    const description = 'This is a description';
+    const myProject = Project.create({
+      name,
+      id: '123',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
+    const name2 = 'My Second Project';
+    const myProject2 = Project.create({
+      name: name2,
+      id: '456',
+      description,
+      priority: ProjectPriorityEnum.LOW,
+    });
+
+    projects.addProject(myProject);
+    projects.addProject(myProject2);
+
+    expect(projects.getProjectsOptions.length).toBe(2);
+    expect(projects.getProjectsOptions).toEqual([
+      {
+        label: name,
+        value: '123',
+      },
+      {
+        label: name2,
+        value: '456',
+      },
+    ]);
   });
 });
