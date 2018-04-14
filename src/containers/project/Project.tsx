@@ -1,4 +1,5 @@
 import { Text } from 'evergreen-ui';
+import { observer } from 'mobx-react';
 import * as React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 
@@ -13,6 +14,7 @@ interface NavParams {
   id: string;
 }
 
+@observer
 class Project extends React.Component<P, S> {
   render() {
     const project = store.projects.getProjectById(this.props.match.params.id);
@@ -20,6 +22,9 @@ class Project extends React.Component<P, S> {
     if (!project) {
       return <Redirect to="/projects" />;
     }
+    console.log('====================================');
+    console.log('totalTime', humanizeTime(project.totalTime));
+    console.log('====================================');
     return (
       <div>
         <Text>{project.name}</Text>
@@ -28,15 +33,10 @@ class Project extends React.Component<P, S> {
           {project.tasks.map(el => (
             <div key={String(el.id)}>
               <p>Name: {el.name}</p>
-              <p>Time: {el.elapsedTime}</p>
+              <p>Time: {humanizeTime(el.elapsedTime)}</p>
             </div>
           ))}
-          <p>
-            TotalTime:{' '}
-            {`${humanizeTime(String(project.totalTime.hours))}:${humanizeTime(
-              String(project.totalTime.minutes),
-            )}:${humanizeTime(String(project.totalTime.seconds))}`}
-          </p>
+          <p>TotalTime: {humanizeTime(project.totalTime)}</p>
         </div>
       </div>
     );

@@ -4,18 +4,36 @@ import * as uuid from 'uuid/v4';
 
 import { ProjectPriorityEnum } from '@freelance-tool/types';
 
+interface ElapsedTime {
+  hours: number;
+  minutes: number;
+  seconds: number;
+  totalSeconds: number;
+}
+
 export const Task = types
   .model('Task', {
     id: types.optional(types.identifier(), () => uuid()),
-    elapsedTime: types.maybe(types.string),
+    elapsedTime: types.model({
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      totalSeconds: 0,
+    }),
     startAt: types.maybe(types.Date),
     endAt: types.maybe(types.Date),
     name: types.string,
   })
   .actions(self => ({
-    end(elapsedTime: string) {
+    end(elapsedTime: ElapsedTime) {
       self.endAt = new Date();
-      self.elapsedTime = elapsedTime;
+
+      self.elapsedTime = {
+        hours: elapsedTime.hours,
+        minutes: elapsedTime.minutes,
+        seconds: elapsedTime.seconds,
+        totalSeconds: elapsedTime.totalSeconds,
+      };
     },
   }))
   .actions(self => ({
@@ -63,37 +81,15 @@ export const Project = types
     },
   }))
   .views(self => ({
-    get totalTime() {
+    get totalTime(): ElapsedTime {
       return self.tasks.reduce(
         (acc, currentValue) => {
-          let hours;
-          let minutes;
-          let seconds;
-          let totalSeconds;
-          if (currentValue.elapsedTime) {
-            const splitValue = currentValue.elapsedTime.split(':');
-
-            const [h, m, s] = splitValue;
-
-            hours = Number(h) + acc.hours;
-            minutes = Number(m) + acc.minutes;
-            seconds = Number(s) + acc.seconds;
-
-            totalSeconds = hours * 60 * 60 + minutes * 60 + seconds;
-
-            return {
-              hours,
-              minutes,
-              seconds,
-              totalSeconds,
-            };
-          }
-
           return {
-            hours,
-            minutes,
-            seconds,
-            totalSeconds,
+            hours: currentValue.elapsedTime.hours + acc.hours,
+            minutes: currentValue.elapsedTime.minutes + acc.minutes,
+            seconds: currentValue.elapsedTime.seconds + acc.seconds,
+            totalSeconds:
+              currentValue.elapsedTime.totalSeconds + acc.totalSeconds,
           };
         },
         {

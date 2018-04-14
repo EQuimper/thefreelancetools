@@ -11,6 +11,7 @@ const currentTimer = CurrentTimer.create({
     hours: 0,
     minutes: 0,
     seconds: 0,
+    totalSeconds: 0,
   },
 });
 

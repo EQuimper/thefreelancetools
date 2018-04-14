@@ -107,21 +107,54 @@ describe('Project model', () => {
     const task1 = Task.create({
       name: 'task1',
       id: 'task1',
+      elapsedTime: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        totalSeconds: 0,
+      },
     });
 
     const task2 = Task.create({
       name: 'task2',
       id: 'task2',
+      elapsedTime: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        totalSeconds: 0,
+      },
     });
 
     const task3 = Task.create({
       name: 'task3',
       id: 'task3',
+      elapsedTime: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        totalSeconds: 0,
+      },
     });
 
-    task1.end('00:10:10');
-    task2.end('01:15:10');
-    task3.end('02:00:00');
+    task1.end({
+      hours: 0,
+      minutes: 10,
+      seconds: 10,
+      totalSeconds: 10 * 60 + 10,
+    });
+    task2.end({
+      hours: 1,
+      minutes: 15,
+      seconds: 10,
+      totalSeconds: 1 * 60 * 60 + 15 * 60 + 10,
+    });
+    task3.end({
+      hours: 2,
+      minutes: 0,
+      seconds: 0,
+      totalSeconds: 2 * 60 * 60,
+    });
 
     project.addTask(task1);
     project.addTask(task2);

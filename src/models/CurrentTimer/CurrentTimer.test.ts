@@ -13,6 +13,12 @@ describe('CurrentTimer model', () => {
     task = Task.create({
       name: 'My Task',
       id: '999',
+      elapsedTime: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        totalSeconds: 0,
+      },
     });
 
     project = Project.create({
@@ -22,12 +28,14 @@ describe('CurrentTimer model', () => {
       priority: 'HIGH',
     });
   });
+
   it('should create a instance of a model', () => {
     const currentTimer = CurrentTimer.create({
       elapseTime: {
         hours: 0,
         minutes: 0,
         seconds: 0,
+        totalSeconds: 0,
       },
     });
 
@@ -36,6 +44,7 @@ describe('CurrentTimer model', () => {
       hours: 0,
       minutes: 0,
       seconds: 0,
+      totalSeconds: 0,
     });
     expect(currentTimer.intervalId).toBe(null);
   });
@@ -46,6 +55,7 @@ describe('CurrentTimer model', () => {
         hours: 0,
         minutes: 0,
         seconds: 0,
+        totalSeconds: 0,
       },
     });
 
@@ -63,6 +73,7 @@ describe('CurrentTimer model', () => {
         hours: 0,
         minutes: 0,
         seconds: 0,
+        totalSeconds: 0,
       },
     });
 
@@ -94,6 +105,7 @@ describe('CurrentTimer model', () => {
         hours: 0,
         minutes: 0,
         seconds: 0,
+        totalSeconds: 0,
       },
     });
 

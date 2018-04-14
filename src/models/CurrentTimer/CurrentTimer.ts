@@ -10,6 +10,7 @@ export const CurrentTimer = types
       hours: 0,
       minutes: 0,
       seconds: 0,
+      totalSeconds: 0,
     }),
     isRunning: false,
     intervalId: types.maybe(types.number),
@@ -19,6 +20,7 @@ export const CurrentTimer = types
   .actions(self => ({
     updateElapseTime() {
       self.elapseTime.seconds += 1;
+      self.elapseTime.totalSeconds += 1;
 
       if (self.elapseTime.seconds === 60) {
         self.elapseTime.minutes += 1;
@@ -54,19 +56,14 @@ export const CurrentTimer = types
         hours: 0,
         minutes: 0,
         seconds: 0,
+        totalSeconds: 0,
       };
     },
   }))
   .actions(self => ({
     finish() {
       if (self.task) {
-        const elapseTime = `${humanizeTime(
-          String(self.elapseTime.hours),
-        )}:${humanizeTime(String(self.elapseTime.minutes))}:${humanizeTime(
-          String(self.elapseTime.seconds),
-        )}`;
-
-        self.task.end(elapseTime);
+        self.task.end(self.elapseTime);
         self.task = null;
       }
 
@@ -78,7 +75,7 @@ export const CurrentTimer = types
     },
   }))
   .views(self => ({
-    get getCurrentElapseTime() {
-      return self.elapseTime;
+    get getCurrentElapseTime(): string {
+      return humanizeTime(self.elapseTime);
     },
   }));

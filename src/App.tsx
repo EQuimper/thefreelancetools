@@ -3,6 +3,8 @@ import {
   faClock,
   faFileAlt,
   faFolder,
+  faPauseCircle,
+  faPlayCircle,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
@@ -14,7 +16,7 @@ import { theme } from './constants';
 import { ModalsManager } from './containers';
 import Routes from './Routes';
 
-library.add(faClock, faUsers, faFolder, faFileAlt);
+library.add(faClock, faUsers, faFolder, faFileAlt, faPlayCircle, faPauseCircle);
 
 const Layout = styled.div`
   display: grid;

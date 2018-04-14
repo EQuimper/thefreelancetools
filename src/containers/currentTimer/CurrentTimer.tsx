@@ -1,10 +1,11 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Combobox, Text, TextInput } from 'evergreen-ui';
 import { observer } from 'mobx-react';
 import * as R from 'ramda';
 import * as React from 'react';
 
 import { store, Task } from '@freelance-tool/models';
-import { humanizeTime } from '@freelance-tool/utils';
+import { IconEnum } from '@freelance-tool/types';
 
 interface OptionItem {
   label: string;
@@ -25,16 +26,6 @@ class CurrentTimer extends React.Component<P, S> {
     taskName: '',
   };
 
-  _getTime() {
-    const { elapseTime } = store.currentTimer;
-
-    const hours = humanizeTime(String(elapseTime.hours));
-    const minutesStr = humanizeTime(String(elapseTime.minutes));
-    const secondsStr = humanizeTime(String(elapseTime.seconds));
-
-    return `${hours}:${minutesStr}:${secondsStr}`;
-  }
-
   _handleStart = () => {
     const getId = R.pathOr('', ['selectedProject', 'value']);
 
@@ -43,6 +34,12 @@ class CurrentTimer extends React.Component<P, S> {
     if (project) {
       const task = Task.create({
         name: this.state.taskName,
+        elapsedTime: {
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          totalSeconds: 0,
+        },
       });
 
       project.addTask(task);
@@ -78,20 +75,39 @@ class CurrentTimer extends React.Component<P, S> {
         <br />
         <br />
         <TextInput
-          onChange={(e: InputEvent) => this.setState({ taskName: e.target.value })}
+          placeholder="Task name"
+          onChange={(e: InputEvent) =>
+            this.setState({ taskName: e.target.value })
+          }
           value={this.state.taskName}
         />
         <br />
         <br />
 
-        <Text>ElapseTime {this._getTime()}</Text>
-        <Button appearance="green" onClick={this._handleStart}>
-          Start
-        </Button>
-        <Button marginLeft={12} appearance="red" onClick={currentTimer.stop}>
-          Stop
-        </Button>
-        <Button marginLeft={12} appearance="ghost" onClick={currentTimer.finish}>
+        <Text>ElapseTime {currentTimer.getCurrentElapseTime}</Text>
+        {currentTimer.isRunning ? (
+          <Button
+            appearance="ghost"
+            marginLeft={12}
+            onClick={currentTimer.stop}
+          >
+            <FontAwesomeIcon size="2x" icon={IconEnum.PAUSE} />
+          </Button>
+        ) : (
+          <Button
+            appearance="ghost"
+            marginLeft={12}
+            onClick={this._handleStart}
+          >
+            <FontAwesomeIcon size="2x" icon={IconEnum.PLAY} />
+          </Button>
+        )}
+
+        <Button
+          marginLeft={12}
+          appearance="ghost"
+          onClick={currentTimer.finish}
+        >
           Finish
         </Button>
         <Button
