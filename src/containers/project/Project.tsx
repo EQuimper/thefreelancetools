@@ -1,21 +1,23 @@
 import { Text } from 'evergreen-ui';
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 
 import { store } from '@freelance-tool/models';
 
-interface P {
-  id: string;
-}
+type P = {} & RouteComponentProps<NavParams>;
 
 interface S {}
 
-class Project extends React.Component<RouteComponentProps<P>, S> {
+interface NavParams {
+  id: string;
+}
+
+class Project extends React.Component<P, S> {
   render() {
     const project = store.projects.getProjectById(this.props.match.params.id);
 
     if (!project) {
-      return null;
+      return <Redirect to="/projects" />;
     }
     return (
       <div>
