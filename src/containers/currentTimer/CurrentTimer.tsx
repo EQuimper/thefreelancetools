@@ -1,11 +1,47 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Combobox, Text, TextInput } from 'evergreen-ui';
+import {
+  Button,
+  Combobox,
+  FormField,
+  Text,
+  TextInput,
+  toaster,
+} from 'evergreen-ui';
 import { observer } from 'mobx-react';
 import * as R from 'ramda';
 import * as React from 'react';
+import styled from 'styled-components';
 
 import { store, Task } from '@freelance-tool/models';
-import { IconEnum } from '@freelance-tool/types';
+import { IconEnum, SidebarIconEnum } from '@freelance-tool/types';
+
+const Root = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr 1fr auto;
+  grid-auto-columns: minmax(100%, auto);
+  grid-row-gap: 40px;
+  justify-self: center;
+  align-self: center;
+  padding: 0px 16px 40px;
+`;
+
+const TopWrapper = styled.div`
+  display: grid;
+  justify-self: center;
+  align-self: center;
+  padding-top: 20px;
+  grid-row-gap: 10px;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Icon = styled(FontAwesomeIcon)`
+  color: #364f65;
+  margin-right: 10px;
+`;
 
 interface OptionItem {
   label: string;
@@ -44,6 +80,8 @@ class CurrentTimer extends React.Component<P, S> {
 
       project.addTask(task);
       store.currentTimer.start(project, task);
+    } else {
+      toaster.danger('Must provided a project');
     }
   }
 
@@ -57,67 +95,70 @@ class CurrentTimer extends React.Component<P, S> {
     const { currentTimer, projects } = store;
 
     return (
-      <div>
-        <Combobox
-          placeholder="Project"
-          autocompleteProps={{
-            title: 'Project Name',
-            itemsFilter: (items: OptionItem[], input: string) =>
-              items.filter(el => el.label.includes(input)),
-          }}
-          openOnFocus
-          items={projects.getProjectsOptions}
-          onChange={this._handleProjectChange}
-          itemToString={(i: OptionItem) => (i ? i.label : '')}
-          selectedItem={this.state.selectedProject}
-        />
-
-        <br />
-        <br />
-        <TextInput
-          placeholder="Task name"
-          onChange={(e: InputEvent) =>
-            this.setState({ taskName: e.target.value })
-          }
-          value={this.state.taskName}
-        />
-        <br />
-        <br />
+      <Root>
+        <TitleWrapper>
+          <div>
+            <Icon icon={SidebarIconEnum.PROJECTS} size="2x" />
+            <Text size={900}>Time Tracker</Text>
+          </div>
+        </TitleWrapper>
+        <TopWrapper>
+          <FormField label="Project name" isRequired>
+            <Combobox
+              placeholder="Project"
+              width={400}
+              autocompleteProps={{
+                title: 'Project Name',
+                itemsFilter: (items: OptionItem[], input: string) =>
+                  items.filter(el => el.label.includes(input)),
+              }}
+              openOnFocus
+              items={projects.getProjectsOptions}
+              onChange={this._handleProjectChange}
+              itemToString={(i: OptionItem) => (i ? i.label : '')}
+              selectedItem={this.state.selectedProject}
+            />
+          </FormField>
+          <FormField label="Task name" isRequired>
+            <TextInput
+              width={400}
+              placeholder="Task name"
+              onChange={(e: InputEvent) =>
+                this.setState({ taskName: e.target.value })
+              }
+              value={this.state.taskName}
+            />
+          </FormField>
+        </TopWrapper>
 
         <Text>ElapseTime {currentTimer.getCurrentElapseTime}</Text>
-        {currentTimer.isRunning ? (
-          <Button
-            appearance="ghost"
-            marginLeft={12}
-            onClick={currentTimer.stop}
-          >
-            <FontAwesomeIcon size="2x" icon={IconEnum.PAUSE} />
-          </Button>
-        ) : (
-          <Button
-            appearance="ghost"
-            marginLeft={12}
-            onClick={this._handleStart}
-          >
-            <FontAwesomeIcon size="2x" icon={IconEnum.PLAY} />
-          </Button>
-        )}
+        <div>
+          {currentTimer.isRunning ? (
+            <Button appearance="ghost" onClick={currentTimer.stop} height={40}>
+              <FontAwesomeIcon size="3x" icon={IconEnum.PAUSE} />
+            </Button>
+          ) : (
+            <Button appearance="ghost" onClick={this._handleStart} height={40}>
+              <FontAwesomeIcon size="3x" icon={IconEnum.PLAY} />
+            </Button>
+          )}
 
-        <Button
-          marginLeft={12}
-          appearance="ghost"
-          onClick={currentTimer.finish}
-        >
-          Finish
-        </Button>
-        <Button
-          marginLeft={12}
-          appearance="ghostBlue"
-          onClick={currentTimer.reset}
-        >
-          Reset
-        </Button>
-      </div>
+          <Button
+            marginLeft={12}
+            appearance="ghost"
+            onClick={currentTimer.finish}
+          >
+            Finish
+          </Button>
+          <Button
+            marginLeft={12}
+            appearance="ghostBlue"
+            onClick={currentTimer.reset}
+          >
+            Reset
+          </Button>
+        </div>
+      </Root>
     );
   }
 }

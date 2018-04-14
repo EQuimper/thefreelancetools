@@ -22,9 +22,7 @@ class Project extends React.Component<P, S> {
     if (!project) {
       return <Redirect to="/projects" />;
     }
-    console.log('====================================');
-    console.log('totalTime', humanizeTime(project.totalTime));
-    console.log('====================================');
+
     return (
       <div>
         <Text>{project.name}</Text>

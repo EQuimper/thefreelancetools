@@ -40,7 +40,9 @@ const LINKS: Array<{
   },
 ];
 
-type P = {} & RouteComponentProps<any>;
+interface NavParams {}
+
+interface P extends RouteComponentProps<NavParams> {}
 
 interface S {}
 

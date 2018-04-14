@@ -29,11 +29,13 @@ interface FormValues {
   priority: ProjectPriorityEnum;
 }
 
-interface P {}
+interface NavParams {}
+
+interface P extends RouteComponentProps<NavParams> {}
 
 interface S {}
 
-class NewProjectModal extends React.PureComponent<RouteComponentProps<P>, S> {
+class NewProjectModal extends React.PureComponent<P, S> {
   _handleSubmit = (values: FormValues, bag: FormikProps<FormValues>) => {
     const project = Project.create({
       ...values,

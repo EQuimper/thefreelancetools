@@ -52,6 +52,8 @@ export const CurrentTimer = types
   }))
   .actions(self => ({
     reset() {
+      self.stop();
+
       self.elapseTime = {
         hours: 0,
         minutes: 0,
@@ -62,6 +64,8 @@ export const CurrentTimer = types
   }))
   .actions(self => ({
     finish() {
+      self.stop();
+
       if (self.task) {
         self.task.end(self.elapseTime);
         self.task = null;

@@ -34,12 +34,14 @@ const Grid = styled.div`
   grid-auto-rows: minmax(200px, auto);
 `;
 
-interface P {}
+interface NavParams {}
+
+interface P extends RouteComponentProps<NavParams> {}
 
 interface S {}
 
 @observer
-class Projects extends React.Component<RouteComponentProps<P>, S> {
+class Projects extends React.Component<P, S> {
   state = {};
   _openNewProjectModal = () => {
     store.modalsManager.open({
