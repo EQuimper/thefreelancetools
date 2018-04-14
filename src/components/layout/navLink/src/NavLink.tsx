@@ -32,12 +32,15 @@ interface P {
   title: string;
   to: string;
   handleLocationChange: (path: string) => void;
-  onClick?: () => void;
   children?: React.ReactNode;
   icon: SidebarIconEnum;
 }
 
-const NavLink = ({ isActive, title, to, onClick, icon }: P) => {
+interface InjectedProps {
+  onClick: () => void;
+}
+
+const NavLink = ({ isActive, title, to, onClick, icon }: P & InjectedProps) => {
   let _color;
 
   if (isActive) {
@@ -53,7 +56,7 @@ const NavLink = ({ isActive, title, to, onClick, icon }: P) => {
   );
 };
 
-export default compose<{}, P>(
+export default compose<InjectedProps, P>(
   onlyUpdateForKeys(['isActive']),
   withHandlers({
     onClick: (props: P) => () => props.handleLocationChange(props.to),

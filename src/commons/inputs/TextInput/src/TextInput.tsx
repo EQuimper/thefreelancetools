@@ -1,5 +1,6 @@
 import { TextInputField as Input } from 'evergreen-ui';
 import * as React from 'react';
+import { compose, onlyUpdateForKeys, withHandlers } from 'recompose';
 
 interface P {
   handleChange: (name: string, value: string) => void;
@@ -15,56 +16,51 @@ interface P {
   errorMessage?: string;
 }
 
-class TextInput extends React.PureComponent<P> {
-  static defaultProps = {
-    isRequired: false,
-  };
-
-  _handleChange = (e: InputEvent) => {
-    const { handleChange, name } = this.props;
-    handleChange(name, e.target.value);
-  }
-
-  _handleBlur = () => {
-    const { handleBlur, name } = this.props;
-    handleBlur(name);
-  }
-
-  render() {
-    const {
-      name,
-      value,
-      placeholder,
-      label,
-      disabled,
-      isInvalid,
-      fullWidth,
-      isRequired,
-      errorMessage,
-    } = this.props;
-
-    const _style: any = {};
-
-    if (fullWidth) {
-      _style.width = '100%';
-    }
-
-    return (
-      <Input
-        name={name}
-        onChange={this._handleChange}
-        placeholder={placeholder}
-        value={value}
-        onBlur={this._handleBlur}
-        disabled={disabled}
-        isInvalid={isInvalid}
-        label={label}
-        required={isRequired}
-        validationMessage={isInvalid && errorMessage}
-        {..._style}
-      />
-    );
-  }
+interface InjectedProps {
+  onBlur: () => void;
+  onChange: () => void;
 }
 
-export default TextInput;
+const TextInput = ({
+  name,
+  value,
+  placeholder,
+  label,
+  disabled,
+  isInvalid,
+  fullWidth = false,
+  isRequired = false,
+  errorMessage,
+  onBlur,
+  onChange,
+}: P & InjectedProps) => {
+  const _style: any = {};
+
+  if (fullWidth) {
+    _style.width = '100%';
+  }
+  return (
+    <Input
+      name={name}
+      onChange={onChange}
+      placeholder={placeholder}
+      value={value}
+      onBlur={onBlur}
+      disabled={disabled}
+      isInvalid={isInvalid}
+      label={label}
+      required={isRequired}
+      validationMessage={isInvalid && errorMessage}
+      {..._style}
+    />
+  );
+};
+
+export default compose<InjectedProps, P>(
+  onlyUpdateForKeys(['value', 'disabled', 'isInvalid', 'errorMessage']),
+  withHandlers({
+    onBlur: (props: P) => () => props.handleBlur(props.name),
+    onChange: (props: P) => (e: InputEvent) =>
+      props.handleChange(props.name, e.target.value),
+  }),
+)(TextInput);
