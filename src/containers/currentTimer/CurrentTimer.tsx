@@ -1,17 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  Button,
-  Combobox,
-  FormField,
-  Text,
-  TextInput,
-  toaster,
-} from 'evergreen-ui';
+import { Button, Combobox, FormField, Text, toaster } from 'evergreen-ui';
+import { Formik, FormikProps } from 'formik';
 import { observer } from 'mobx-react';
 import * as R from 'ramda';
 import * as React from 'react';
+import * as Yup from 'yup';
 
-import { styled } from '@freelance-tool/commons';
+import { styled, TextInput } from '@freelance-tool/commons';
 import { store, Task } from '@freelance-tool/models';
 import { IconEnum, SidebarIconEnum } from '@freelance-tool/types';
 
@@ -25,7 +20,7 @@ const Root = styled.div`
   padding: 0px 16px 40px;
 `;
 
-const TopWrapper = styled.div`
+const TopWrapper = styled.form`
   display: grid;
   justify-self: center;
   align-self: center;
@@ -36,6 +31,7 @@ const TopWrapper = styled.div`
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const Icon = styled(FontAwesomeIcon)`
@@ -46,6 +42,11 @@ const Icon = styled(FontAwesomeIcon)`
 interface OptionItem {
   label: string;
   value: string;
+}
+
+interface FormValuesType {
+  projectName: OptionItem | null;
+  taskName: string;
 }
 
 interface P {}
@@ -85,10 +86,27 @@ class CurrentTimer extends React.Component<P, S> {
     }
   }
 
-  _handleProjectChange = (value: OptionItem) => {
-    this.setState({
-      selectedProject: value,
-    });
+  _handleSubmit = (
+    values: FormValuesType,
+    bag: FormikProps<FormValuesType>,
+  ) => {
+    if (values.projectName) {
+      const project = store.projects.getProjectById(values.projectName.value);
+
+      if (project) {
+        const task = Task.create({
+          name: values.taskName,
+          elapsedTime: {
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            totalSeconds: 0,
+          },
+        });
+
+        project.addTask(task);
+      }
+    }
   }
 
   render() {
@@ -98,40 +116,85 @@ class CurrentTimer extends React.Component<P, S> {
       <Root>
         <TitleWrapper>
           <div>
-            <Icon icon={SidebarIconEnum.PROJECTS} size="2x" />
+            <Icon icon={SidebarIconEnum.TIME_TRACKER} size="2x" />
             <Text size={900}>Time Tracker</Text>
           </div>
+          <Text size={600}>
+            Elapse Time {currentTimer.getCurrentElapseTime}
+          </Text>
         </TitleWrapper>
-        <TopWrapper>
-          <FormField label="Project name" isRequired>
-            <Combobox
-              placeholder="Project"
-              width={400}
-              autocompleteProps={{
-                title: 'Project Name',
-                itemsFilter: (items: OptionItem[], input: string) =>
-                  items.filter(el => el.label.includes(input)),
-              }}
-              openOnFocus
-              items={projects.getProjectsOptions}
-              onChange={this._handleProjectChange}
-              itemToString={(i: OptionItem) => (i ? i.label : '')}
-              selectedItem={this.state.selectedProject}
-            />
-          </FormField>
-          <FormField label="Task name" isRequired>
-            <TextInput
-              width={400}
-              placeholder="Task name"
-              onChange={(e: InputEvent) =>
-                this.setState({ taskName: e.target.value })
-              }
-              value={this.state.taskName}
-            />
-          </FormField>
-        </TopWrapper>
+        <Formik
+          validationSchema={Yup.object().shape({
+            projectName: Yup.object()
+              .shape({
+                label: Yup.string().required(),
+                value: Yup.string().required(),
+              })
+              .required(),
+            taskName: Yup.string().required('Task name is required'),
+          })}
+          initialValues={{
+            projectName: null,
+            taskName: '',
+          }}
+          onSubmit={this._handleSubmit}
+          render={({
+            values,
+            isValid,
+            isSubmitting,
+            setFieldValue,
+            errors,
+            touched,
+            setFieldTouched,
+            handleSubmit,
+          }: FormikProps<FormValuesType>) => (
+            <TopWrapper onSubmit={handleSubmit}>
+              <FormField label="Project name" isRequired>
+                <Combobox
+                  placeholder="Project"
+                  width={400}
+                  autocompleteProps={{
+                    title: 'Project Name',
+                    itemsFilter: (items: OptionItem[], input: string) =>
+                      items.filter(el =>
+                        el.label.toLowerCase().includes(input.toLowerCase()),
+                      ),
+                  }}
+                  openOnFocus
+                  items={projects.getProjectsOptions}
+                  onChange={(value: OptionItem) =>
+                    setFieldValue('projectName', value)
+                  }
+                  itemToString={(i: OptionItem) => (i ? i.label : '')}
+                  selectedItem={values.projectName}
+                />
+              </FormField>
 
-        <Text>ElapseTime {currentTimer.getCurrentElapseTime}</Text>
+              <TextInput
+                label="Task name"
+                isRequired
+                name="taskName"
+                placeholder="Task name"
+                handleChange={setFieldValue}
+                value={values.taskName}
+                isInvalid={!!(errors.taskName && touched.taskName)}
+                handleBlur={setFieldTouched}
+                disabled={isSubmitting}
+                errorMessage={errors.taskName}
+              />
+
+              <Button
+                disabled={!isValid || isSubmitting}
+                isLoading={isSubmitting}
+                appearance="green"
+                type="submit"
+              >
+                Create Task
+              </Button>
+            </TopWrapper>
+          )}
+        />
+
         <div>
           {currentTimer.isRunning ? (
             <Button appearance="ghost" onClick={currentTimer.stop} height={40}>

@@ -7,15 +7,15 @@ import { styled } from '@freelance-tool/commons';
 interface P {
   name: string;
   id: string;
-  onCardPress: (id: string) => void;
+  onClick: (id: string) => void;
 }
 
 interface InjectedProps {
-  onClick: () => void;
+  onCardPress: () => void;
 }
 
 const enhance = withHandlers<P, InjectedProps>({
-  onClick: (props: P) => () => props.onCardPress(props.id),
+  onCardPress: (props: P) => () => props.onClick(props.id),
 });
 
 const Card = styled(Pane).attrs({
@@ -31,10 +31,12 @@ const Card = styled(Pane).attrs({
   min-height: 170px;
 `;
 
-const ProjectCard = enhance(({ name, onClick, ...rest }: P & InjectedProps) => (
-  <Card onClick={onClick} {...rest}>
-    <Text>{name}</Text>
-  </Card>
-));
+const ProjectCard = enhance(
+  ({ name, onCardPress, ...rest }: P & InjectedProps) => (
+    <Card onClick={onCardPress} {...rest}>
+      <Text>{name}</Text>
+    </Card>
+  ),
+);
 
 export default pure(ProjectCard);

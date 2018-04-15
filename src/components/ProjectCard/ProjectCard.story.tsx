@@ -18,5 +18,5 @@ const CenterDecorator = (storyFn: any) => <CenterView>{storyFn()}</CenterView>;
 storiesOf('ProjectCard', module)
   .addDecorator(CenterDecorator)
   .add('default', () => (
-    <ProjectCard id="123" onCardPress={action('card-press')} name="MyProject" />
+    <ProjectCard id="123" onClick={action('card-press')} name="MyProject" />
   ));

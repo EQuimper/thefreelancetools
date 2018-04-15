@@ -8,7 +8,7 @@ interface P {
   name: string;
   value: string;
   placeholder: string;
-  label: string;
+  label?: string;
   disabled: boolean;
   isInvalid: boolean;
   fullWidth?: boolean;

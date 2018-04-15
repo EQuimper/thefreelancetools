@@ -71,7 +71,7 @@ class Projects extends React.Component<P, S> {
         <Grid>
           {Array.from(projects.getProjects).map(([key, value]) => (
             <ProjectCard
-              onCardPress={this._onCardPress}
+              onClick={this._onCardPress}
               {...value}
               key={key}
               id={key}
