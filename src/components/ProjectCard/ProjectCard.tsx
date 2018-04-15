@@ -28,10 +28,11 @@ const Card = styled(Pane).attrs({
   justify-content: center;
   cursor: pointer;
   border-radius: 5px;
+  min-height: 170px;
 `;
 
-const ProjectCard = enhance(({ name, onClick }: P & InjectedProps) => (
-  <Card onClick={onClick}>
+const ProjectCard = enhance(({ name, onClick, ...rest }: P & InjectedProps) => (
+  <Card onClick={onClick} {...rest}>
     <Text>{name}</Text>
   </Card>
 ));

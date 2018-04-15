@@ -40,6 +40,11 @@
     "yup": "^0.24.1"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.1",
+    "@storybook/addon-info": "^3.4.1",
+    "@storybook/addon-links": "^3.4.1",
+    "@storybook/addons": "^3.4.1",
+    "@storybook/react": "^3.4.1",
     "@types/date-fns": "^2.6.0",
     "@types/jest": "^22.2.2",
     "@types/node": "^9.6.2",
@@ -49,8 +54,11 @@
     "@types/react-dom": "^16.0.4",
     "@types/react-router-dom": "^4.2.6",
     "@types/recompose": "^0.24.7",
+    "@types/storybook__addon-actions": "^3.0.3",
+    "@types/storybook__react": "^3.0.7",
     "@types/uuid": "^3.4.3",
     "@types/yup": "^0.24.3",
+    "babel-core": "^6.26.0",
     "concurrently": "^3.5.1",
     "electron": "^1.8.4",
     "electron-builder": "^20.8.1",
@@ -61,6 +69,8 @@
     "mobx-wiretap": "^0.13.1",
     "react-app-rewire-hot-loader": "^1.0.1",
     "react-app-rewired": "^1.5.0",
+    "react-docgen-typescript": "^1.2.6",
+    "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "react-hot-loader": "^4.0.1",
     "react-scripts-ts": "2.14.0",
     "react-testing-library": "^2.1.1",
@@ -75,6 +85,8 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "prettier": "prettier --write 'src/**/*.js'"
+    "prettier": "prettier --write 'src/**/*.js'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   }
 }
