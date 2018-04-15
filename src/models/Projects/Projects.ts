@@ -2,14 +2,10 @@ import { toaster } from 'evergreen-ui';
 import { destroy, getParent, types } from 'mobx-state-tree';
 import * as uuid from 'uuid/v4';
 
-import { ProjectPriorityEnum } from '@freelance-tool/types';
-
-interface ElapsedTime {
-  hours: number;
-  minutes: number;
-  seconds: number;
-  totalSeconds: number;
-}
+import {
+  ElapsedTimeInterface,
+  ProjectPriorityEnum,
+} from '@freelance-tool/types';
 
 export const Task = types
   .model('Task', {
@@ -25,7 +21,7 @@ export const Task = types
     name: types.string,
   })
   .actions(self => ({
-    end(elapsedTime: ElapsedTime) {
+    end(elapsedTime: ElapsedTimeInterface) {
       self.endAt = new Date();
 
       self.elapsedTime = {
@@ -81,7 +77,7 @@ export const Project = types
     },
   }))
   .views(self => ({
-    get totalTime(): ElapsedTime {
+    get totalTime(): ElapsedTimeInterface {
       return self.tasks.reduce(
         (acc, currentValue) => {
           return {

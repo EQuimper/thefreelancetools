@@ -3,8 +3,8 @@ import { Button, Text } from 'evergreen-ui';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import styled from 'styled-components';
 
+import { styled } from '@freelance-tool/commons';
 import { ProjectCard } from '@freelance-tool/components';
 import { store } from '@freelance-tool/models';
 import { ModalTypeEnum, SidebarIconEnum } from '@freelance-tool/types';

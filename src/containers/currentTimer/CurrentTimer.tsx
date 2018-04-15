@@ -10,8 +10,8 @@ import {
 import { observer } from 'mobx-react';
 import * as R from 'ramda';
 import * as React from 'react';
-import styled from 'styled-components';
 
+import { styled } from '@freelance-tool/commons';
 import { store, Task } from '@freelance-tool/models';
 import { IconEnum, SidebarIconEnum } from '@freelance-tool/types';
 

@@ -1,4 +1,4 @@
-export default interface ThemeInterface {
+export interface ThemeInterface {
   sidebarBackground: string;
   mainDark: string;
 }

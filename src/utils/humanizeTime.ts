@@ -1,9 +1,4 @@
-interface ElapsedTime {
-  hours: number;
-  minutes: number;
-  seconds: number;
-  totalSeconds: number;
-}
+import { ElapsedTimeInterface } from '@freelance-tool/types';
 
 const normalizeTime = (amount: string) => {
   if (amount.length === 1) {
@@ -13,7 +8,7 @@ const normalizeTime = (amount: string) => {
   return amount;
 };
 
-export const humanizeTime = (time: ElapsedTime): string => {
+export const humanizeTime = (time: ElapsedTimeInterface): string => {
   return `${normalizeTime(String(time.hours))}:${normalizeTime(
     String(time.minutes),
   )}:${normalizeTime(String(time.seconds))}`;

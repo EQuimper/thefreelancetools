@@ -2,10 +2,9 @@ import { Button, FormField } from 'evergreen-ui';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import styled from 'styled-components';
 import * as Yup from 'yup';
 
-import { SegmentedControl, TextInput } from '@freelance-tool/commons';
+import { SegmentedControl, styled, TextInput } from '@freelance-tool/commons';
 import { Project, store } from '@freelance-tool/models';
 import { ProjectPriorityEnum } from '@freelance-tool/types';
 import { capitalize } from '@freelance-tool/utils';

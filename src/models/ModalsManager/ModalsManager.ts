@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree';
 
-import { ModalTypeEnum } from '../../types';
+import { ModalTypeEnum } from '@freelance-tool/types';
 
 interface ModalOpen {
   modalType: ModalTypeEnum;

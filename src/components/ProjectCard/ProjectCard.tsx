@@ -1,7 +1,8 @@
 import { Pane, Text } from 'evergreen-ui';
 import * as React from 'react';
 import { pure, withHandlers } from 'recompose';
-import styled from 'styled-components';
+
+import { styled } from '@freelance-tool/commons';
 
 interface P {
   name: string;

@@ -1,1 +1,2 @@
-export { default as ThemeInterface } from './ThemeInterface';
+export * from './ThemeInterface';
+export * from './ElapsedTimeInterface';
