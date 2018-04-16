@@ -33,9 +33,11 @@ const Card = styled(Pane).attrs({
 
 const ProjectCard = enhance(
   ({ name, onCardPress, ...rest }: P & InjectedProps) => (
-    <Card onClick={onCardPress} {...rest}>
-      <Text>{name}</Text>
-    </Card>
+    <div onClick={onCardPress}>
+      <Card {...rest}>
+        <Text>{name}</Text>
+      </Card>
+    </div>
   ),
 );
 

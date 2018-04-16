@@ -1,12 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Combobox, FormField, Text, toaster } from 'evergreen-ui';
+import { Button, FormField, Text, toaster } from 'evergreen-ui';
 import { Formik, FormikProps } from 'formik';
 import { observer } from 'mobx-react';
 import * as R from 'ramda';
 import * as React from 'react';
 import * as Yup from 'yup';
 
-import { styled, TextInput } from '@freelance-tool/commons';
+import { SelectInput, styled, TextInput } from '@freelance-tool/commons';
 import { store, Task } from '@freelance-tool/models';
 import { IconEnum, SidebarIconEnum } from '@freelance-tool/types';
 
@@ -150,23 +150,13 @@ class CurrentTimer extends React.Component<P, S> {
           }: FormikProps<FormValuesType>) => (
             <TopWrapper onSubmit={handleSubmit}>
               <FormField label="Project name" isRequired>
-                <Combobox
-                  placeholder="Project"
-                  width={400}
-                  autocompleteProps={{
-                    title: 'Project Name',
-                    itemsFilter: (items: OptionItem[], input: string) =>
-                      items.filter(el =>
-                        el.label.toLowerCase().includes(input.toLowerCase()),
-                      ),
-                  }}
-                  openOnFocus
-                  items={projects.getProjectsOptions}
-                  onChange={(value: OptionItem) =>
-                    setFieldValue('projectName', value)
-                  }
-                  itemToString={(i: OptionItem) => (i ? i.label : '')}
+                <SelectInput
+                  handleChange={setFieldValue}
                   selectedItem={values.projectName}
+                  width={400}
+                  name="projectName"
+                  title="Project Name"
+                  items={projects.getProjectsOptions}
                 />
               </FormField>
 
